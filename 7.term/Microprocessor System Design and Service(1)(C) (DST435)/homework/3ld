@@ -1,0 +1,3 @@
+Laboratorijas darba uzdevums: realizēt sakarus starp Olimex izstrādes plati un host datoru izmantojot Ethernet savienojumu. Savienojumam izmantot „Linux networking socket” slāņu pieeju. Kā transporta protokolu izmantot UDP.
+
+Papildus uzdevums: izpētīt iespēju un piedāvāt variantu transporta protokola izmainīšanai pret TCP.

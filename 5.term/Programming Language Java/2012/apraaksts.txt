@@ -1,0 +1,7 @@
+Java bibliotēkas pētījumā analizējamie jautājumi:
+Ieguvumi: Kāpēc ir nepieciešama šī bibliotēka? Kāds no tās izmantošanas ir ieguvums programmētājam? Kāds ir ieguvums uzturēšanas komandai? Vai tās rezultātā radītais kods varētu būt vieglāk pārceļams no vienas vides uz otru vidi? Cik daudz var uzdot izvietošanas loģiku konfigurācijas failiem?
+Konkurence: Kādas ir citas pieejamās alternatīvas šai bibliotēkai? Kas ir tie + vai - kas padara šo bibliotēku par labāko izvēli salīdzinot ar konkurējošām realizācijām?
+Ko ir nepieciešams veikt citiem studentiem šajā klasē, lai tie varētu izmantot šīs bibliotēkas sniegtās priekšrocības? Kādas ir nepieciešamās "investīcijas" ar to domājot investīcijas zināšanās, resursos no infrastruktūras viedokļa utt.? Kāds ir pieejamais community atbalsts? (linki uz forumiem, tutorials, kas jāinstalē utt)
+Kā pārbaudīt vai bibliotēkas pielietojums ir nesis iepriekšaprakstīto labumu? Kādas metrikas pielietot? Kas ir tie nosacījumi, kad nevajag izvēlēties šo bibliotēku un kad būtu jāpārtrauc lietot šo bibliotēku?
+Kādi riski izriet no šīs bibliotēkas izmantošanas? Kā tos novērst vai mazināt to ietekmi?
+Praktisku koda piemēru, kurš būtu izpildāms uz pasniedzēja darba stacijas.

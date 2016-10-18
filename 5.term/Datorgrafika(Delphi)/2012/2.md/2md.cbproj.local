@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012.09.17 11:17:37.859.cpp,C:\Documents and Settings\Students\My Documents\RAD Studio\Projects\Unit2.cpp=C:\Documents and Settings\Students\Desktop\101RDB125\dublis2\Unit2.cpp</Transaction>
+    <Transaction>2012.09.17 11:17:37.859.h,C:\Documents and Settings\Students\My Documents\RAD Studio\Projects\Unit2.h=C:\Documents and Settings\Students\Desktop\101RDB125\dublis2\Unit2.h</Transaction>
+    <Transaction>2012.09.17 11:17:37.859.dfm,C:\Documents and Settings\Students\My Documents\RAD Studio\Projects\Unit2.dfm=C:\Documents and Settings\Students\Desktop\101RDB125\dublis2\Unit2.dfm</Transaction>
+    <Transaction>2012.09.17 11:17:39.218.cbproj,C:\Documents and Settings\Students\My Documents\RAD Studio\Projects\Project2.cbproj=C:\Documents and Settings\Students\Desktop\101RDB125\dublis2\Project2.cbproj</Transaction>
+    <Transaction>2013.01.10 11:29:08.875.cbproj,C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\istais_labd\Project2.cbproj=C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.majas darbs.cbproj</Transaction>
+    <Transaction>2013.01.10 11:30:48.632.cbproj,C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.majas darbs.cbproj=C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.md\2md.cbproj</Transaction>
+    <Transaction>2013.01.10 11:31:08.839.cpp,C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\istais_labd\Unit2.cpp=C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.md\Unit2.cpp</Transaction>
+    <Transaction>2013.01.10 11:31:08.839.h,C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\istais_labd\Unit2.h=C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.md\Unit2.h</Transaction>
+    <Transaction>2013.01.10 11:31:08.839.dfm,C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\istais_labd\Unit2.dfm=C:\Users\Vladimirs\Dropbox\5.semestr\Datorgrafika\2.md\Unit2.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

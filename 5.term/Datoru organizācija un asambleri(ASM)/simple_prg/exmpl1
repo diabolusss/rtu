@@ -1,0 +1,25 @@
+; Illustrates full segment directives for COM program
+
+TEXT    SEGMENT                         ; Code segment
+	ASSUME  cs:TEXT, ds:TEXT
+	ORG     100h
+
+start:  jmp     go
+
+rez	dw	0
+msg     DB      "Sveiki studenti!", 7, 13, 10, "$"
+
+go:     mov	bx, 2
+	mov	cx, 10
+	sub 	bx, cx
+	mov 	rez, bx
+
+	mov     ah, 9h                  ; Request Function 9
+	mov     dx, offset msg          ; Load DX with offset of string
+					;   (segment already in DS)
+	int     21h 	                ; Display String to Standard Output
+
+	int     20h          ; Exit
+
+TEXT    ENDS
+	END     start        ; End with reference to first statement (CS:IP)

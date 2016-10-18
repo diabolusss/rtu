@@ -1,0 +1,195 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtDlgs, StdCtrls, ExtCtrls, ComCtrls;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    OpenPictureDialog1: TOpenPictureDialog;
+    Button2: TButton;
+    Label1: TLabel;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    Button3: TButton;
+    Image1: TImage;
+    Image2: TImage;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    CheckBox4: TCheckBox;
+    TabSheet3: TTabSheet;
+    Image3: TImage;
+    TabSheet4: TTabSheet;
+    Image4: TImage;
+    Button4: TButton;
+    TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
+    Image5: TImage;
+    Image6: TImage;
+    TabSheet7: TTabSheet;
+    Image7: TImage;
+    Button5: TButton;
+    TabSheet8: TTabSheet;
+    TabSheet9: TTabSheet;
+    TabSheet10: TTabSheet;
+    Image8: TImage;
+    Image9: TImage;
+    Image10: TImage;
+    TabSheet11: TTabSheet;
+    TabSheet12: TTabSheet;
+    TabSheet13: TTabSheet;
+    Image11: TImage;
+    Image12: TImage;
+    Image13: TImage;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+if OpenPictureDialog1.Execute then
+  begin
+   Image1.Picture.LoadFromFile(OpenPictureDialog1.FileName);
+  end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var i,j: Integer;
+ r1,g1,b1,r2,g2,b2: Byte;
+begin
+Image2.Height:=Image1.Height;
+Image2.Width:=Image1.Width;
+  for j:=0 to Image1.Height-1 do
+ for i:=0 to Image1.Width-1 do
+begin
+ r1:=GetRValue(Image1.Canvas.Pixels[i,j]);
+ g1:=GetGValue(Image1.Canvas.Pixels[i,j]);
+ b1:=GetBValue(Image1.Canvas.Pixels[i,j]);
+
+   if CheckBox1.Checked then r2:=r1 else r2:=0;
+   if CheckBox2.Checked then g2:=g1 else g2:=0;
+   if CheckBox3.Checked then b2:=b1 else b2:=0;
+    Image2.Canvas.Pixels[i,j]:=RGB(r2,g2,b2);
+  end;
+end;
+
+
+procedure TForm1.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+var r,g,b:Byte;
+begin
+ r:=GetRValue(Image1.Canvas.Pixels[X,Y]);
+ g:=GetGValue(Image1.Canvas.Pixels[X,Y]);
+ b:=GetBValue(Image1.Canvas.Pixels[X,Y]);
+ Label1.Caption:='('+IntToStr(r)+','+IntToStr(g)+','+IntToStr(b)+')';
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var i,j: Integer;
+ r1,g1,b1,r2,g2,b2: Byte;
+begin
+Image3.Height:=Image2.Height;
+Image3.Width:=Image2.Width;
+  for j:=0 to Image2.Height-1 do
+ for i:=0 to Image2.Width-1 do
+begin
+ r1:=GetRValue(Image2.Canvas.Pixels[i,j]);
+ g1:=GetGValue(Image2.Canvas.Pixels[i,j]);
+ b1:=GetBValue(Image2.Canvas.Pixels[i,j]);
+
+   if CheckBox1.Checked then r2:=r1 else r2:=0;
+   if CheckBox2.Checked then g2:=g1 else g2:=0;
+   if CheckBox3.Checked then b2:=b1 else b2:=0;
+
+   if CheckBox4.Checked then b2:=255-b1 else b2:=0;
+   if CheckBox4.Checked then r2:=255-r1 else r2:=0;
+   if CheckBox4.Checked then g2:=255-g1 else g2:=0;
+
+  Image3.Canvas.Pixels[i,j]:=RGB(r2,g2,b2);
+  end;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var i,j: Integer;
+ r1,g1,b1,c,m,y: Byte;
+begin
+Image4.Height:=Image2.Height;
+Image4.Width:=Image2.Width;
+  for j:=0 to Image2.Height-1 do
+ for i:=0 to Image2.Width-1 do
+begin
+ r1:=GetRValue(Image2.Canvas.Pixels[i,j]);
+ g1:=GetGValue(Image2.Canvas.Pixels[i,j]);
+ b1:=GetBValue(Image2.Canvas.Pixels[i,j]);
+   c:=255-r1;
+   m:=255-g1;
+   y:=255-b1;
+
+ Image4.Canvas.Pixels[i,j]:=RGB(c,255,255);
+ Image5.Canvas.Pixels[i,j]:=RGB(255,m,255);
+ Image6.Canvas.Pixels[i,j]:=RGB(255,255,y);
+
+end;
+
+end;
+
+
+procedure TForm1.Button5Click(Sender: TObject);
+var i,j: Integer;
+ r1,g1,b1,c,m,y,k: Byte;
+begin
+Image4.Height:=Image2.Height;
+Image4.Width:=Image2.Width;
+  for j:=0 to Image2.Height-1 do
+ for i:=0 to Image2.Width-1 do
+begin
+ r1:=GetRValue(Image2.Canvas.Pixels[i,j]);
+ g1:=GetGValue(Image2.Canvas.Pixels[i,j]);
+ b1:=GetBValue(Image2.Canvas.Pixels[i,j]);
+   c:=255-r1;
+   m:=255-g1;
+   y:=255-b1;
+   if c < m then
+    k := c
+  else
+    k := m;
+  if y < k then
+    k := y;
+  if k > 0 then
+  begin
+    c := c - k;
+    m := m - k;
+    y := y - k;
+
+ Image7.Canvas.Pixels[i,j]:=CMYK(c,255,255,255);
+ Image8.Canvas.Pixels[i,j]:=CMYK(255,m,255,255);
+ Image9.Canvas.Pixels[i,j]:=CMYK(255,255,y,255);
+ Image10.Canvas.Pixels[i,j]:=CMYK(255,255,255,k);
+
+end;
+
+end;
+
+end;
+end.

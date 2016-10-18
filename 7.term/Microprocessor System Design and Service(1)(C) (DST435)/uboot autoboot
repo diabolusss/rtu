@@ -1,0 +1,18 @@
+
+U-boot autoboot from usb
+*
+setenv bootcmd 'usb start; fatload usb 0 0xa0800000 romfs_5.img; fatload usb 0 0xa0008000 vmlinux.bin; go a0008000'
+saveenv
+*
+
+U-boot autoboot from a tftp-server
+*
+setenv bootcmd 'tftpboot 0xa0800000 192.168.1.100:romfs_5.img; tftpboot 0xa0008000 192.168.1.100:vmlinux.bin; go a0008000'
+saveenv
+*
+
+U-boot autoboot from nfs-server
+*
+
+saveenv
+*

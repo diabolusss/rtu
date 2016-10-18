@@ -1,0 +1,7 @@
+Praktiskās nodarbības mērķis:
+Attīrīt krāsu trokšņus no attēliem. Materiālus nodarbībai var atrast ŠEIT.
+
+Uzdevumi:
+1.Uzlabot attela “Color_Noise03.jpg” kvalitāti izmantojot Reduce Noise/Median/Blur atsevišķos krāsu kanālos (RGB režīmā un Lab režīmā) un izmantojot High Pass/Overlay slāni.
+2.Uzlabot attela “Color_Noise04.jpg” kvalitāti izmantojot Reduce Noise/Median/Blur atsevišķos krāsu kanālos (jebkurā režīmā), kā arī pamainīt krāsu balansu, pielietojot Hue/Color Balance vai otu ar režīmu Color
+3.Uzlabot attela “Color_Noise05.jpg” kvalitāti izmantojot jebkurus nepieciešamos rīkus.

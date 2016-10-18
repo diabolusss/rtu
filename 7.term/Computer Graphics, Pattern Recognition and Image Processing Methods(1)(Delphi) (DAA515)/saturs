@@ -1,0 +1,55 @@
+Kursa praktiskās nodarbības.
+Praktisko darbu nokārtošanas nosacījumi ir šādi:
+Patstāvīgā uzdevuma programmas realizācija un darba protokola noformēšana.
+Drukātā veidā jānodod darba protokolu.
+Elektroniskā veidā (uz e-pastu Aleksandrs.Sisojevs@rtu.lv) jānosūta programmas projektu arhivētā veidā (*.zip, *.rar utt.) un darba protokolu.
+Darba protokola struktūra:
+1) titullapa;
+2) uzdevuma nostādne;
+3) uzdevuma teorētiskais pamatojums;
+4) programmas apraksts (user manual);
+5) secinājumi;
+
+1. uzdevums
+Krāsu korekcijā RGB krāsu modeļī.
+
+Realizēt attēlu krasu korekcijas (spilgtums, kontrasts utt.) izmantojot pārveidošanas funkciju RGB krāsu sistēmā. 
+Darbā izmantot atsevišķas lineāras funkcijās katrā krāsu kanālā.
+
+2. uzdevums
+Rastra attēlu vienkāršās transformācijās
+
+Realizēt vienkāršas rastra attēla transformācijas:
+- nobīde par uzdotām koordinātām uz veselo pikseļu skaitu;
+- rotācija par 90, 180 un 270 grādiem
+- atspoguļojums no Ox un Oy asim.
+
+3. uzdevums
+Rastra attēla mērogošana.
+
+Realizēt rastra attēla mērogošanu, izmantojot trīs interpolācijas metodes:
+- tuvākā kaimiņa interpolācijas metode
+- bilineārā interpolācijas metode;
+- bikubiskā interpolācijas metode.
+
+4. uzdevums
+Rastra attēla rotācija uz patvaļīgo leņķi.
+
+Realizēt attēlu rotāciju pēc uzdotā leņķa.
+Izmantot arī pikseļa vērtību interpolāciju kā 3.uzdevumā.
+
+5. uzdevums
+Krāsu korekcija HSV krasu modelī.
+
+Realizēt attēlu krasu korekcijas (spilgtums, kontrasts utt.) izmantojot pārveidošanas funkciju HSV krāsu sistēmā. 
+Darbā izmantot atsevišķas lineāras funkcijās SATURATION un VALUE krāsu kanālā un leņķa transformāciju HUE krāsu kanālā.
+
+6. uzdevums
+Rastra attēla segmentācija ar histogrammas palīdzību.
+
+Izveidot rastra attēla histogrammu. Izmantojot histogrammas izveidot divu veidu segmentācijas –„horizontālo” un „vertikālo” segmentāciju. Noteikt, kā pieejas intensitātes izskaitļošanai ietekmē histogrammu un segmentācijas rezultātus.
+
+7. uzdevums
+Trokšņu filtrācija.
+
+Realizēt trokšņu noņemšanas filtrus attēlam. Iegūt attēlu ar «sāls un pipars» veida troksni. Attēla kvalitātes uzlabošanai pielietot mediana filtrus un 2 veidus krustoperatora filtrus (2 un 4 virzienos).

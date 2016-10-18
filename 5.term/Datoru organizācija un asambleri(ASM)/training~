@@ -1,0 +1,28 @@
+ 
+1.
+ Uzrakstīt dotos decimālos skaitļus heksadecimālajā skaitīšanas sistēmā (kā tie glabāsies divos baitos):
+ 4110 = 100E 
+ Visvieglāk rezultātu var iegūt, ja zina 16 pakāpes, proti 16 kubā ir 4096. Tad 4110=4096+14 = 1000h+0Eh=100Eh. 
+ Vai arī var pakāpeniski dalīt ar 16 un pierakstīt atlikumus pretējā secībā: 
+ 4110:16=256, atlikumā 14 (pierakstām E), 256:16=16, atlikmumā 0 (pierakstām 0E), 16:16=1, atlikumā 0 (pierakstām 00E), 1:16=0, atlikmā 1 (pierakstām 100E). Tas tad arī ir rezultātrs, dalīšana nav vairs jāturpina, kad sasniegts dalījums 0.
+
+ -60 = FFC4
+ Visvienkāršāk ir darīt tā: pārveidot 60 heksadecimālajā sistēmā ( 60 = 3Ch ) un tad atņemt: 10000h - 3Ch = 0FFC4h
+
+ -1040 = FBF0
+ Atkal sākumā pārveidojam 1040 = 410h un tad atņemam 10000h - 410h = 0FBF0h.
+
+
+ 2.
+ Kāda ir reģistra AX skaitliskā vērtība decimālajā skaitīšanas sistēmā, ja tajā glabājas šāds kods, kas pierakstīts heksadecimālajā skaitīšanas sistēmā (skaitlis ar zīmi)?
+
+ 10AA = 4096+160+10 = 4266
+
+ FFD1 = -47, jo 10000h-FFD1=2F, ko pārveidojam uz decimālo sistēmu: 2*16+15=47.
+
+ 3.
+ Izpildīt aritmētiskās darbības ar heksadecimāliem skaitļiem:
+ 1ABC + 645 = 2101
+ 1234 - CBA = 57A
+﻿
+ 

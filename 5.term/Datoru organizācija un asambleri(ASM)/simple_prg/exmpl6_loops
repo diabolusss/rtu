@@ -1,0 +1,38 @@
+TEXT    SEGMENT
+	ASSUME  cs:TEXT, ds:TEXT
+	ORG     100h
+start:  jmp	go
+
+m	dw	-1, 2, 3,-4, 5
+	dw	 1,-2, 3, 4, 5
+	dw	 1, 2,-3, 4,-5
+
+rez	dw	3 dup(0)
+
+go:	
+	xor	si,si		;matricas indekss = 0
+	xor	di,di		;rezultatu masiva indekss = 0
+
+	mov	cx, 3		;rindu skaits
+rows:	push	cx
+
+	xor	ax, ax		;summa = 0
+	mov	cx, 5		;kolonnu skaits
+cols:	push	cx
+	cmp	m[si],0		;vai elements negativs?
+	jge	next		;jnl
+	add	ax, m[si]	;pieskaita elementu rindas summai
+next:	add	si,2		;matricas indekss
+	pop	cx
+	loop	cols		;ieksejais cikls
+
+	mov	rez[di], ax	;summa -> rezultats
+	add	di,2		;rezultatu masiva indekss
+	pop	cx
+	loop	rows		;arejais cikls
+
+	int     20h
+
+TEXT    ENDS
+	END     start
+

@@ -1,0 +1,6 @@
+Objekts - klases eksemplars
+objektam ir identitate,stavoklis un uzvediba
+
+Triangle t; // objekts t
+t.a = 50; t.b = 40; t.c = 30; // malu garumi - stavokli
+t.area(); // laukums - uzvediba

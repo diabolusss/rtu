@@ -1,0 +1,7 @@
+<?xml version="1.0" enccoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+	<properties>
+		<entry key="jdbc.username">root</entry>
+		<entry key="jdbc.password">mysql</entry>
+	</properties>
+

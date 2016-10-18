@@ -1,0 +1,9 @@
+class square: Rectangle{
+protected:
+int a;
+public:
+square(int side) {a=side;}
+int Perimetrs(){return 4*a;)
+int area(){return a*a;}
+
+};

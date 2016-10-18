@@ -1,0 +1,16 @@
+; Illustrates simplified segment directives for COM program
+
+	.MODEL	tiny
+	.DATA
+msg     DB      "Sveiks!", 7, 13, 10, "$"
+
+	.CODE
+	.STARTUP
+
+	mov     ah, 9h                  ; Request Function 9
+	mov     dx, OFFSET msg          ; Load DX with offset of string
+					;   (segment already in DS)
+	int     21h 	                ; Display String to Standard Output
+
+	.EXIT	0
+	END

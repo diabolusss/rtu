@@ -1,0 +1,13 @@
+program Project1;
+
+uses
+  Forms,
+  Unit1 in 'D:\traaaash\RTU-last\MAGISTR\SEM2\scenu_analize\lab78\''l''\asd\Unit1.pas' {Main_menu};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TMain_menu, Main_menu);
+  Application.Run;
+end.

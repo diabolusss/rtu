@@ -1,0 +1,316 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, Menus, JPEG, StdCtrls,Math;
+
+type
+  TRGB = record
+    R,G,B: Byte;
+    int:integer;//intensitaate
+  end;
+  THistogram=array[0..256] of record
+    I:Integer;//intensitaate
+    end;
+
+  TRGBTripleArray = array[word] of TRGBTriple;
+  pRGBTripleArray = ^TRGBTripleArray;
+
+  TForm1 = class(TForm)
+    MainMenu1: TMainMenu;
+    File1: TMenuItem;
+    Open1: TMenuItem;
+    OpenDialog1: TOpenDialog;
+    Image1: TImage;
+    Image2: TImage;
+    Label1: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    Uzdevumi1: TMenuItem;
+    Lab11: TMenuItem;
+    Lab21: TMenuItem;
+    Button3: TButton;
+    Edit1: TEdit;
+    Label2: TLabel;
+    Edit2: TEdit;
+    Label3: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Open1Click(Sender: TObject);
+    procedure ReadFromBMP();
+    procedure imgToImage1(a:integer);
+    procedure Image2MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure DrawHistogram(HRGB:THistogram);
+    procedure Normalize(var Histogram:THistogram; RGBnumber, OrStart,OrEnd:integer);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  img,temp: array of array of TRGB;
+  bmp: TBitmap;
+  jpg: TJPEGImage;
+  rgbhist:THistogram;
+  H_start,H_end:integer;//histogr diapaz vertibas
+  pos:integer;
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  bmp:=TBitmap.Create;
+  jpg:=TJPEGImage.Create;
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  bmp.Free;
+  jpg.Free;
+end;
+
+procedure TForm1.Open1Click(Sender: TObject);
+var FP: string;
+begin
+  if OpenDialog1.Execute then
+    begin
+      FP:=AnsiUpperCase(ExtractFileExt
+          (OpenDialog1.Filename));
+
+      if FP='.BMP' then
+        begin
+          bmp.LoadFromFile(OpenDialog1.FileName);
+        end;
+      if FP='.JPG' then
+        begin
+          jpg.LoadFromFile(OpenDialog1.FileName);
+          bmp.Width:=jpg.Width;
+          bmp.Height:=jpg.Height;
+          bmp.Canvas.Draw(0,0,jpg);
+        end;
+      bmp.PixelFormat:=pf24bit;
+    end;
+    ReadFromBMP();
+    imgToImage1(0);
+    DrawHistogram(rgbhist);
+end;
+
+procedure TForm1.ReadFromBMP();
+var i,j: integer;
+    rinda: pRGBTripleArray;
+begin
+  SetLength(img, bmp.Width, bmp.Height);
+  SetLength(temp,bmp.Width,bmp.Height);
+  for i:=0 to 256 do
+    rgbhist[i].I:=0;//attiiram iepr veertiibas
+
+  for j:=0 to bmp.Height-1 do
+    begin
+      rinda:=bmp.ScanLine[j];
+      for i:=0 to bmp.Width-1 do
+        begin
+          img[i,j].R:=rinda[i].rgbtRed;
+          img[i,j].G:=rinda[i].rgbtGreen;
+          img[i,j].B:=rinda[i].rgbtBlue;
+          //izskaitljoam intens katram px
+          img[i,j].int:=(77*img[i,j].R+150*img[i,j].G+29*img[i,j].B)div 256;
+
+          temp[i,j].R:=rinda[i].rgbtRed;
+          temp[i,j].G:=rinda[i].rgbtGreen;
+          temp[i,j].B:=rinda[i].rgbtBlue;
+          //izskaitljoam intens katram px
+          temp[i,j].int:=(77*temp[i,j].R+150*temp[i,j].G+29*temp[i,j].B)div 256;
+
+        //  rgbhist[img[i,j].int].I:=
+          inc(rgbhist[img[i,j].int].I);//vai vnk tas pats +1
+
+        end;
+    end;
+    for i:=0 to 256 do
+      rgbhist[256].I:=Max( rgbhist[256].I,rgbhist[i].I);
+end;
+
+procedure TForm1.imgToImage1(a:integer);
+var i,j: integer;
+    rinda: pRGBTripleArray;
+begin
+  Image1.Picture.Bitmap.Width:=Length(img);
+  Image1.Picture.Bitmap.Height:=Length(img[0]);
+  Image1.Picture.Bitmap.PixelFormat:=pf24bit;
+
+  for j:=0 to High(img[0]) do
+    begin
+      rinda:=Image1.Picture.Bitmap.ScanLine[j];
+      for i:=0 to High(img) do
+        begin
+         case a of
+          0:begin
+          rinda[i].rgbtRed:=img[i,j].R;
+          rinda[i].rgbtGreen:=img[i,j].G;
+          rinda[i].rgbtBlue:=img[i,j].B;
+          end;
+           1:begin
+           rinda[i].rgbtRed:=img[i,j].int;
+           rinda[i].rgbtGreen:=img[i,j].int;
+           rinda[i].rgbtBlue:=img[i,j].int;
+         end;
+          2:begin
+           rinda[i].rgbtRed:=temp[i,j].r;
+           rinda[i].rgbtGreen:=temp[i,j].g;
+           rinda[i].rgbtBlue:=temp[i,j].b;
+         end;
+        end;
+    end;
+  end;
+  Image1.Refresh;    
+end;
+procedure TForm1.Image2Click(Sender: TObject);
+begin
+if (edit1.Focused=true) then
+edit1.Text:='d';
+end;
+
+procedure TForm1.Image2MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+Label1.Caption:='Levels'+IntToStr(x);
+ 
+end;
+
+procedure TForm1.DrawHistogram(HRGB: THistogram);
+var i,j:integer;
+    row:pRGBTripleArray;
+    Bitmap:TBitmap;
+begin
+    Bitmap:=TBitmap.Create;
+    Bitmap.Width:=256;
+    Bitmap.Height:=100;
+    Bitmap.PixelFormat:=pf24bit;
+
+    for j:=0 to Bitmap.Height-1 do
+      begin
+          row:=Bitmap.ScanLine[j];
+            for i:=0 to Bitmap.Width do
+              begin
+                  if j<(100-round(HRGB[i].I/HRGB[256].i*100)) then
+                    begin
+                      row[i].rgbtRed:=200;
+                      row[i].rgbtGreen:=200;
+                      row[i].rgbtBlue:=200;
+                    end
+
+                    else
+                    begin
+                      row[i].rgbtRed:=0;
+                      row[i].rgbtGreen:=0;
+                      row[i].rgbtBlue:=0;
+                    end;
+              end;
+      end;
+      Image2.Picture.Graphic:=Bitmap;
+      Bitmap.Free;
+end;
+
+
+
+procedure TForm1.Normalize(var Histogram: THistogram; RGBnumber, OrStart,
+  OrEnd: integer);
+  var OriginalRange,StretchedRange,Intensity,Ir,Ig,Ib,i,j:integer;
+  ScaleFactor:real;
+begin
+      Repeat
+        inc(OrStart);
+      until Histogram[OrStart].i>0 ;
+
+      Repeat
+        dec(OrEnd);
+      until Histogram[OrEnd].i>0 ;
+
+      OriginalRange:=OrEnd-OrStart;
+      StretchedRange:=255;
+
+      if OriginalRange=0 then OriginalRange:=1;
+
+      ScaleFactor:=StretchedRange/OriginalRange;
+
+      for i:=0 to 256 do
+        Histogram[i].I:=0;     //attiiriijaam
+
+        for i:=0 to High(img) do
+          for j:=0 to High(img[0]) do
+            begin
+                if RGBnumber=1 then //intensity
+                  begin
+                     Intensity:=Round(ScaleFactor*(img[i,j].int-OrStart));
+
+                     if Intensity>255 then Intensity:=255;
+                     if Intensity<0 then Intensity:=0;
+                     img[i,j].int:=Intensity;
+                  end;
+                if RGBnumber=2 then //intensity
+                  begin
+                  //red
+                     Ir:=Round(ScaleFactor*(img[i,j].r-OrStart));
+                     if Ir>255 then Ir:=255;
+                     if Ir<0 then Ir:=0;
+                     img[i,j].r:=Ir;
+                  //green
+                     Ig:=Round(ScaleFactor*(img[i,j].g-OrStart));
+                     if Ig>255 then Ig:=255;
+                     if Ig<0 then Ig:=0;
+                     img[i,j].g:=Ig;
+                  //blue
+                     Ib:=Round(ScaleFactor*(img[i,j].b-OrStart));
+                     if Ib>255 then Ib:=255;
+                     if Ib<0 then Ib:=0;
+                     img[i,j].b:=Ib;
+                  end;
+
+                  inc(histogram[Intensity].I);
+               end;
+                  for i:=0 to 256 do
+                    Histogram[256].I:=Max(Histogram[256].i,Histogram[i].I);
+                  //if rgbnumber=2 then RED green blue etc.
+
+
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  H_Start:=-1;
+  H_End:=256;
+  Normalize(rgbhist,1,H_Start,H_End);
+  ImgToImage1(1);//izvadam
+  DrawHistogram(rgbhist);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  ImgToImage1(2);
+  ReadFromBMP;
+  DrawHistogram(rgbhist);
+  H_Start:=-1;
+  H_End:=256;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  H_Start:=-1;
+  H_End:=256;
+  Normalize(rgbhist,2,H_Start,H_End);
+  ImgToImage1(0);//izvadam
+  DrawHistogram(rgbhist);
+end;
+
+end.

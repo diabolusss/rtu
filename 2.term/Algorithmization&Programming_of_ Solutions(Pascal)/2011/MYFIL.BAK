@@ -1,0 +1,98 @@
+unit myfil;
+interface
+type filrec= record
+      name: string[37];
+      numb :integer;
+      end;
+type filetype = file of filrec;
+
+procedure create(var fff:filetype; filename:string);
+procedure openf( var fff:filetype; var RC:integer);
+procedure view( var fff:filetype);
+procedure Wrfile( var fff:filetype);
+procedure insinfile( var fff:filetype; n: integer);
+implementation
+
+procedure create(var fff:filetype; filename:string);
+var rec:filrec;
+begin
+assign(fff, filename);
+rewrite(fff);
+rec.name:='aaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+rec.numb:=0;
+write(fff, rec);
+close(fff);
+end;
+
+
+procedure openf( var fff:filetype; var RC: integer);
+begin
+{$I-}
+reset(fff);
+{$I+}
+RC:=ioresult;
+end;
+
+procedure view( var fff:filetype);
+var
+i,k :integer; rec:filrec;
+begin
+i:=0;
+seek(fff,i);
+while (eof(fff)<> TRUE) do
+begin
+read(fff,rec);
+write('RECORD ', i:2,'  Name=  "',rec.name, '"');
+for k:=length(rec.name) to 40 do
+write(' ');
+writeln(' Numb=', rec.numb);
+
+{writeln('RECORD ', i,'  ',rec.name, '   numb=', rec.numb);}
+i:=i+1;
+end;
+seek(fff,0);
+end;
+
+procedure WRfile( var fff:filetype);
+label NEXT;
+var rec:filrec;
+begin
+NEXT: writeln (' ievadi name ');
+readln(rec.name);
+writeln (' ievadi numb ');
+readln(rec.numb);
+if(rec.numb<> 1313) then
+begin
+write(fff, rec);
+goto NEXT;
+end;
+truncate(fff);
+end;
+
+procedure insinfile( var fff:filetype; n: integer);
+label NEXT;
+var rec:filrec;
+    pos: integer;
+begin
+
+pos := FileSize(fff);
+while(pos<>n)  do
+begin
+seek(fff,pos-1);
+read(fff,rec);
+write(fff,rec);
+pos:=pos-1;
+end;
+rec.name:='abcdefghijabcdefghijabcdefghijabcdefghij';
+rec.numb:=1234;
+seek(fff,n);
+write(fff, rec);
+end;
+
+
+
+
+
+
+begin
+end.

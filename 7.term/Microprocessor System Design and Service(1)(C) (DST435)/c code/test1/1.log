@@ -1,0 +1,17 @@
+arm-linux-gnueabi-gcc -c -mcpu=arm926ej-s init.c -o init.o
+arm-linux-gnueabi-as -mcpu=arm926ej-s startup.s -o startup.o
+arm-linux-gnueabi-ld -T linker.ld init.o startup.o -o out.elf
+arm-linux-gnueabi-objcopy -O binary out.elf out.bin
+
+##/**
+##The binary file is executed on QEMU and will write the message “Hello Open World”
+##to UART 0 of the ARM926EJ-S, which QEMU redirects as output in the terminal.
+##**/
+
+qemu-system-arm -M versatilepb -nographic -kernel out.bin
+
+file out.elf
+
+##gives o\p
+out.elf: ELF 32-bit LSB executable, ARM, version 1 (SYSV), statically linked, not stripped
+

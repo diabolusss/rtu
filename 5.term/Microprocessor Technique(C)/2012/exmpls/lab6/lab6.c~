@@ -1,0 +1,240 @@
+/******* CONST ********************************************************/
+#define FOSC 14745600UL	//MCU System clock(XTAL pin frequency) cycles per second
+#define BAUD 9600 // the transfer rate in bit per second (bps)
+#define _UBRR FOSC/16/BAUD-1  //Contents of the UBRRH and UBRRL Registers, (0 - 4095)
+#define SIZE 8
+
+/****** HEADER FILES **************************************************/
+#include <avr/io.h>
+#include <avr/interrupt.h> 
+#include <stdlib.h> //atoi
+
+/****** USER DEFINED TYPES ********************************************/
+typedef struct ptr_object{	
+	int start;
+	int end;
+	unsigned char size;
+	unsigned char *value;
+} ptr_object;
+
+
+/***** FUNCTION PROTOTYPES ********************************************/
+void port_init(void);
+void init_devices(void);
+
+void USART_Init(unsigned int ubrr);
+void USART_Transmit(unsigned char data);
+unsigned char USART_Receive(void);
+
+void COP_init(void);
+
+unsigned char _strlen(unsigned char *string); //string length
+unsigned char _rotl(const unsigned char value, unsigned char shift); //circular shift
+
+void cbWrite(ptr_object *cb, unsigned char *_byte);
+unsigned char cbRead(ptr_object *cb);
+unsigned char cbIsFull(ptr_object *cb);
+unsigned char cbIsEmpty(ptr_object *cb);
+
+/****** GLOBAL VARIABLES **********************************************/
+
+	/******  ******************/
+	/****** TIMER0 ******************/
+	volatile unsigned long timer = 0;	
+	
+	/****** CBUFFER *****************/
+	volatile ptr_object buffer;
+	volatile unsigned char tx_complete = 1;
+	volatile unsigned int rx_delay = 1;
+
+/****** INTERRUPTS ****************************************************/
+ISR(TIMER0_OVF_vect) {	    
+	timer+=255*128;
+}
+
+//receive complete
+ISR(USART0_RX_vect){
+	//save data to buffer		
+	//*buffer.value = USART_Receive();
+	unsigned char *tmp;
+	*tmp = USART_Receive();
+
+	cbWrite(&buffer, tmp);
+
+	//set delay	
+	if (cbIsFull(&buffer) == 1){
+
+		rx_delay = (unsigned int) atoi (buffer.value);
+		do{
+			USART_Transmit(*buffer.value);
+			buffer.value++;
+			buffer.start = (buffer.start + 1) % buffer.size;
+
+		}while(!cbIsEmpty(&buffer));
+	}
+
+	//echo received data
+	//USART_Transmit(*buffer.value);
+
+	//allow communicate
+	tx_complete = 1;
+}
+
+//UDR empty
+ISR(USART0_UDRE_vect){
+	if (tx_complete == 1){
+		ptr_object elem;
+
+		elem.value = "\n\rSYN:CHAARONII TO YOUR SEVICE\n\r";
+		elem.size = _strlen(elem.value);		
+
+		do{
+			USART_Transmit(*elem.value);				
+			elem.size--;
+			elem.value++;				
+		}while(elem.size);
+
+		elem.value = "SYN";
+		elem.size = _strlen(elem.value);
+		tx_complete = 0;
+			
+	}
+}
+/****** PROGRAMM BODY *************************************************/
+int main(void){
+	init_devices();
+
+	//LEDs
+	unsigned char port_data = 0x80;
+	unsigned char *delay, value = 2;	
+	delay = &value;
+	
+	while(1){		
+			
+		/****** LEDs ******************/
+		if(timer > (FOSC * (rx_delay)) ){
+			port_data = _rotl(port_data,1);
+			PORTD = ~port_data;
+			timer = 0;
+		}
+			
+				
+	}	
+	return 0;	
+}
+/****** END PROGRAMM BODY **********************************************/
+
+/****** SYSTEM CONFIGURATION *******************************************/
+void port_init(void){
+	DDRD  = 0xFF; 	//port D o/p
+	PORTD  = ~(0x00); //LEDs off
+	
+	sei();	//allow global interrupts
+}
+
+void init_devices(void){	
+
+	/**** TIMER0 SETUP **********/
+	TCCR0 = 0x05;	//F_CPU/32 11[off(0)/1/8/32/64/128/256/1024]
+	TIMSK = 0x01;	//overflow enable
+	TCNT0 = 0;		//set start value
+	
+	/**** USART0 SETUP **********/
+	USART_Init(_UBRR);
+	
+	/**** WATCHDOG SETUP ********/	
+	//COP_init();
+
+	/**** PORT SETUP ************/
+	port_init(); 
+}
+
+void USART_Init(unsigned int ubrr){
+	/* Set baud rate */
+	UBRR0H = (unsigned char)(ubrr >> 8);
+	UBRR0L = (unsigned char)ubrr;
+
+	/* Enable receiver and transmitter, complete interrupt enable */
+	//UCSR0B = (1<<RXCIE0)|(1<<TXCIE0)|(1 << RXEN0)|(1 << TXEN0);
+	UCSR0B = (1<<RXCIE0)|(1<<UDRIE0)|(1 << RXEN0)|(1 << TXEN0);	
+
+	/* Set frame format: 8data, 2stop bit */
+	UCSR0C = (1 << USBS) |(3 << UCSZ0);
+	//set by def |(3 << UCSZ0);	!?????
+
+	//MAX buffer size + one empty to avoid start == end
+	buffer.size = 2 + 1;
+	buffer.start = 0;
+	buffer.end = 0;	
+}
+
+void COP_init(void){
+	//initialize and set prescaller	
+	#pragma optsize-	//lai nesacakaretu kodu atsledzam opt uz laiku
+		//WDTCR =  (1 << WDE) | (1 << WDCE);	//watchdog change enable
+		//WDTCR  = 1<<WDE | 1<<WDP2 | 1<<WDP1 | 1<<WDP0; // set  prescaler
+		WDTCR = 0x1E;				//A watchdog timer (or computer operating properly (COP) timer) 
+		WDTCR = 0x0E;				//WatchDog Enable[can be erased if WDCE=1] todo[disable]: 
+		#ifdef _OPTIMIZE_SIZE_		//1)send 1 to both WDCE & WDE 2)in next 4 clocks send 0 to wde[2.lvl is secured against that]
+			#pragma optsize+		//WDP2, WDP1, WDP0: Watchdog Timer Prescaler 2, 1, and 0
+		#endif						//0 0 0 16K (16,384) 14.8 ms 14.0 ms
+									//0 0 1 32K (32,768) 29.6 ms 28.1 ms
+									//1 1 0 1,024K (1,048,576) 0.95 s 0.9 s
+									//1 1 1 2,048K (2,097,152) 1.9 s 1.8 s
+}
+
+/****** IN PROGRAMM FUNCTIONS *****************************************/
+void USART_Transmit( unsigned char data ){
+	/* Wait for empty transmit buffer (UDRE is set)*/
+	while ( !( UCSR0A & (1<<UDRE)) );
+
+	/* Put data into buffer, sends the data */
+	UDR0 = data;
+}
+
+unsigned char USART_Receive( void ){
+	/* Wait for data to be received */
+	while ( !(UCSR0A & (1<<RXC0)) );
+
+	/* Get and return received data from buffer */
+	return UDR0;
+}
+
+/******** BUFFER FUNC ******************************/
+void cbWrite(ptr_object *cb, unsigned char *_byte) {
+	//if(cbIsFull(cb)) return;
+    cb->value[cb->end] = *_byte;
+    cb->end = (cb->end + 1) % cb->size;
+    if (cb->end == cb->start)
+        cb->start = (cb->start + 1) % cb->size; /* full, overwrite */
+}
+
+unsigned char cbRead(ptr_object *cb){
+	unsigned char *tmp;
+	*tmp = cb->value[cb->start];
+    cb->start = (cb->start + 1) % cb->size;
+
+	return tmp;
+}
+
+unsigned char cbIsFull(ptr_object *cb) {
+    return (cb->end + 1) % cb->size == cb->start; }
+
+unsigned char cbIsEmpty(ptr_object *cb){
+	return cb->end == cb->start;
+}
+
+/****** WIDE RANGE FUNCTIONS ******************************************/
+/******** STRING LENGTH ******************************/
+unsigned char _strlen(unsigned char *string){ 
+	unsigned char length = 0;
+	while(*(string+length)) length++;
+	return length;
+}
+
+/******** CIRCULAR SHIFT *****************************/
+unsigned char _rotl(const unsigned char value, unsigned char shift) {
+    if ((shift &= sizeof(value)*8 - 1) == 0) return value;
+    return (value << shift) | (value >> (sizeof(value)*8 - shift));
+    //return (value >> shift) | (value << (sizeof(value)*8 - shift)); //right
+} 

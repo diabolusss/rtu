@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2013.05.19 17:58:52.712.pas,D:\rtu\magist\2.semestr\Scenu_analize\lab3\Unit1.pas=D:\rtu\magist\2.semestr\Scenu_analize\lab4_1\Unit1.pas</Transaction>
+    <Transaction>2013.05.19 17:58:52.712.dfm,D:\rtu\magist\2.semestr\Scenu_analize\lab3\Unit1.dfm=D:\rtu\magist\2.semestr\Scenu_analize\lab4_1\Unit1.dfm</Transaction>
+    <Transaction>2013.05.19 17:59:02.539.dproj,D:\rtu\magist\2.semestr\Scenu_analize\lab3\Project1.dproj=D:\rtu\magist\2.semestr\Scenu_analize\lab4_1\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

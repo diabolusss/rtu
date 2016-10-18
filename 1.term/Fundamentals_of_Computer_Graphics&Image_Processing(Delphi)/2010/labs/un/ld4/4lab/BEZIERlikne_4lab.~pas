@@ -1,0 +1,62 @@
+unit BEZIERlikne_4lab;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    RadioGroup1: TRadioGroup;
+    procedure FormCreate(Sender: TObject);
+    procedure bezier(n:integer);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  B:array[0..2] of real;
+  P:array[0..2] of record
+   x,y: integer;
+  end;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var i:integer;
+
+begin
+ Randomize;
+ for i:=0 to 2 do
+  begin
+   p[i].x:=random(Image1.Width);
+   p[i].y:=random(Image1.Height);
+  end;
+end;
+procedure tform1.bezier(n:integer);
+var x,y,i: integer; t:real;
+ begin
+  t:=0;
+  x:=p[0].x;
+  y:=p[0].y;
+  for i:=1 to N do
+   begin
+     t:=t+1/n;
+     B[0]:=sqr(1-t);
+     B[1]:=2*t*(1-t);
+     B[2]:=t*t;
+
+     x:=round((b[0]*p[0].x+b[1]*p[1].x+b[2]*p[2].x));
+     y:=round((b[0]*p[0].y+b[1]*p[1].y+b[2]*p[2].y));
+
+     Image1.Canvas.Ellipse(x-2,y-2,x+2,y+2);
+   end;
+ end;
+end.

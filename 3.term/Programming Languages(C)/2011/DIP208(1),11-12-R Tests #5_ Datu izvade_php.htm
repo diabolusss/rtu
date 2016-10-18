@@ -1,0 +1,1141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="lv" xml:lang="lv">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/ortus_green/styles.php" />
+
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/standard/styles_ie6.css" />
+<![endif]-->
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="https://moodle.rtu.lv/moodle/theme/standard/styles_ie6.css" />
+<![endif]-->
+
+<meta name="keywords" content="RTU, Rīgas Tehniskā universitāte, Riga Technical university, Universitāte, University, moodle, e-studijas, estudijas, elearning, tālākizglītība" />
+
+    <meta name="keywords" content="moodle, DIP208(1),11/12-R: Tests #5. Datu izvade " />
+    <title>DIP208(1),11/12-R: Tests #5. Datu izvade</title>
+    <link rel="shortcut icon" href="https://moodle.rtu.lv/moodle/theme/ortus_green/favicon.ico" />
+
+    <!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(https://moodle.rtu.lv/moodle/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/javascript-static.js"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/cookies.js"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/ufo.js"></script>
+<script type="text/javascript" src="https://moodle.rtu.lv/moodle/lib/dropdown.js"></script>  
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url, name, options, fullscreen) {
+    var fullurl = "https://moodle.rtu.lv/moodle" + url;
+    var windowobj = window.open(fullurl, name, options);
+    if (!windowobj) {
+        return true;
+    }
+    if (fullscreen) {
+        windowobj.moveTo(0, 0);
+        windowobj.resizeTo(screen.availWidth, screen.availHeight);
+    }
+    windowobj.focus();
+    return false;
+}
+
+function uncheckall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = false;
+    }
+}
+
+function checkall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = true;
+    }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+<script type="text/javascript" charset="utf-8">
+/* <![CDATA[ */
+    var CSSClass={};CSSClass.is=function(e,c){if(typeof e=="string")e=document.getElementById(e);var classes=e.className;if(!classes)return false;if(classes==c)return true;return e.className.search("\\b"+c+"\\b")!=-1;};CSSClass.add=function(e,c){if(typeof e=="string")e=document.getElementById(e);if(CSSClass.is(e,c))return;if(e.className)c=" "+c;e.className+=c;};CSSClass.remove=function(e,c){if(typeof e=="string")e=document.getElementById(e);e.className=e.className.replace(new RegExp("\\b"+c+"\\b\\s*","g"),"");};
+    
+    var script = {
+        corrections: function () {
+            if (top.user) {
+                top.document.getElementsByTagName('frameset')[0].rows = "117,30%,0,200";
+            }
+            
+            // check for layouttabel and add layouttable classes to body
+            var tagname = 'nolayouttable';
+            if (document.getElementById('middle-column')) {
+                var lc = document.getElementById('left-column');
+                var rc = document.getElementById('right-column');
+                if ( lc && rc ) {
+                    tagname = 'haslayouttable rightandleftcolumn';
+                } else if (lc) {
+                    tagname = 'haslayouttable onlyleftcolumn';
+                } else if (rc) {
+                    tagname = 'haslayouttable onlyrightcolumn';
+                } else {
+                    tagname = 'haslayouttable onlymiddlecolumn';
+                }
+            }
+            
+            function setbodytag (tagname) {
+                var bd = document.getElementsByTagName('body')[0];
+                if (bd) {
+                    CSSClass.add(bd, tagname);
+                } else {
+                    setTimeout(function() { setbodytag(tagname) }, 30);
+                }
+            }
+            
+            setTimeout(function() { setbodytag(tagname) }, 30);
+        },
+        
+        init: function() {
+            script.corrections();
+        }
+    };
+/* ]]> */
+</script></head>
+
+<body  class="mod-quiz course-57532 dir-ltr lang-lv_utf8 notinpopup" id="mod-quiz-review">
+
+    <div id="page">
+
+    <div class="header-top">
+    	     <div id="top-dock">
+	      <div id="top-dock-left">
+	        <ul class="linklist rightside" style="margin: 0 0;">
+	          <li class="noicon-login">
+	           <div class="logininfo">Jūs esat pieslēdzies kā <a  href="https://moodle.rtu.lv/moodle/user/view.php?id=118327&amp;course=57532">Šarņeckis Eduards</a>  (<a  href="https://moodle.rtu.lv/moodle/login/logout.php?sesskey=hpCosJ3N4F">Atslēgties</a>)</div>	          </li>
+	          <li class="icon-home">
+	           <a href="https://moodle.rtu.lv/moodle">Mani kursi</a>
+	          </li>
+          	          <li class="icon-profile">
+	           <a href="https://moodle.rtu.lv/moodle/user/view.php?id=118327">Mans profils</a>
+	          </li>
+          	          <li class="icon-ortus">
+	           <a href="https://ortus.rtu.lv">ORTUS</a>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+        <div class="headermenu"><form action="https://moodle.rtu.lv/moodle/index.php?lang=" method="get" target="_self"  id="chooselangen_utf8" class="popupform"><input type="hidden" name="sesskey" value="hpCosJ3N4F" /><input type="hidden" name="lang" value="en_utf8" /><input type="submit" value="" style="border:none; width:27px; padding:3px; margin:3px; background:url(https://moodle.rtu.lv/moodle/theme/ortus_green/lang/en_utf8.gif) no-repeat; cursor:hand;" title="English (en)"/></form><form action="https://moodle.rtu.lv/moodle/index.php?lang=" method="get" target="_self"  id="chooselanglv_utf8" class="popupform"><input type="hidden" name="sesskey" value="hpCosJ3N4F" /><input type="hidden" name="lang" value="lv_utf8" /><input type="submit" value="" style="border:none; width:27px; padding:3px; margin:3px; background:url(https://moodle.rtu.lv/moodle/theme/ortus_green/lang/lv_utf8.gif) no-repeat; cursor:hand;" title="Latviešu (lv)"/></form></div>
+        <div id="header-logo1">
+      		<a href="https://moodle.rtu.lv/moodle"><img src="https://moodle.rtu.lv/moodle/theme/ortus_green/pix/moodle_logo.png" alt="ORTUS" /></a>
+    	</div>
+        <h1 class="headermain">Programmēšanas valodas(1),11/12-R </h1>
+    </div>
+        <div class="navbar clearfix">
+                        <div class="breadcrumb">
+            <h2 class="accesshide " >Jūs esat šeit</h2> <ul><li class="first">
+        							<a onclick="this.target='_top'" href="https://ortus.rtu.lv">ORTUS</a>
+        							<span class="arrow sep">►</span></li>
+<li class="first"><a  onclick="this.target='_top'" href="https://moodle.rtu.lv/moodle/">E-Studijas</a></li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a  onclick="this.target='_top'" href="https://moodle.rtu.lv/moodle/course/view.php?id=57532">DIP208(1),11/12-R</a></li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a  onclick="this.target='_top'" href="https://moodle.rtu.lv/moodle/mod/quiz/index.php?id=57532">Testi</a></li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> <a  onclick="this.target='_top'" href="https://moodle.rtu.lv/moodle/mod/quiz/view.php?id=199918">Tests #5. Datu izvade</a></li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> Mēģinājuma 1 pārskats</li></ul>            </div>
+            <div class="navbutton">&nbsp;</div>
+                    </div>
+        <!-- END OF HEADER -->
+<div id="content" class="wrap wraplevel1 ">
+<div id="content-bt" class="bt"><div>&nbsp;</div></div>
+<div id="content-i1" class="i1"><div id="content-i2" class="i2"><div id="content-i3" class="i3"><div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div><h2   class="main">Tests #5. Datu izvade</h2><h2   class="main">Mēģinājuma 1 pārskats</h2>
+<div class="controls">
+<div class="singlebutton"><form action="view.php" method="get"><div><input type="hidden" name="id" value="199918" /><input type="submit" value="Pabeigt pārskatīšanu"   /></div></form></div></div>
+<table class="generaltable generalbox quizreviewsummary"><tbody>
+<tr><th scope="row" class="cell">Sākts</th><td class="cell">pirmdiena, 2011. gada  28. novembris, 15:09</td></tr>
+<tr><th scope="row" class="cell">Pabeigts</th><td class="cell">ceturtdiena, 2011. gada 1. decembris, 23:48</td></tr>
+<tr><th scope="row" class="cell">Patērētais laiks</th><td class="cell">3 dienas 8 stundas</td></tr>
+<tr><th scope="row" class="cell">Punkti</th><td class="cell">23/23</td></tr>
+<tr><th scope="row" class="cell">Vērtējums</th><td class="cell"><b>10</b> no maksimuma 10 (<b>100</b>%)</td></tr>
+</tbody></table>
+<div id="q80554" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>1</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šīs darbības rezultātā?<br />cprintf(&quot;Kur atrodas kursors\n&quot;);<br /></div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80554_238892" name="resp80554_"  type="radio" value="238892" />        </td>
+        <td class="c1 text ">
+          <label for="resp80554_238892">
+            <span class="anun">a<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamās rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80554_238894" name="resp80554_" checked="checked" type="radio" value="238894" />        </td>
+        <td class="c1 text ">
+          <label for="resp80554_238894">
+            <span class="anun">b<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamajā rindiņā pozīcijā aiz izvadīta teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80554_238895" name="resp80554_"  type="radio" value="238895" />        </td>
+        <td class="c1 text ">
+          <label for="resp80554_238895">
+            <span class="anun">c<span class="anumsep">.</span></span> Kur atrodas kursors (->rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80554_238893" name="resp80554_"  type="radio" value="238893" />        </td>
+        <td class="c1 text ">
+          <label for="resp80554_238893">
+            <span class="anun">d<span class="anumsep">.</span></span> Kur atrodas kursors (->uzreiz aiz teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80557" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>2</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />gets(virkne); //virkne - Es mācos RTU<br />puts(virkne);<br /></div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80557_238906" name="resp80557_"  type="radio" value="238906" />        </td>
+        <td class="c1 text ">
+          <label for="resp80557_238906">
+            <span class="anun">a<span class="anumsep">.</span></span> Es mācos RTU (->kursors nebūs redzams)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80557_238904" name="resp80557_" checked="checked" type="radio" value="238904" />        </td>
+        <td class="c1 text ">
+          <label for="resp80557_238904">
+            <span class="anun">b<span class="anumsep">.</span></span> Es mācos RTU (->kursors nākamajā rindiņā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80557_238905" name="resp80557_"  type="radio" value="238905" />        </td>
+        <td class="c1 text ">
+          <label for="resp80557_238905">
+            <span class="anun">c<span class="anumsep">.</span></span> Es mācos RTU (->kursors uzreiz aiz teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80557_238907" name="resp80557_"  type="radio" value="238907" />        </td>
+        <td class="c1 text ">
+          <label for="resp80557_238907">
+            <span class="anun">d<span class="anumsep">.</span></span> Es mācos RTU (->kursors rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80562" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>3</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />cprintf(&quot;Tas ir krāsainais teksts&quot;);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80562_238924" name="resp80562_"  type="radio" value="238924" />        </td>
+        <td class="c1 text ">
+          <label for="resp80562_238924">
+            <span class="anun">a<span class="anumsep">.</span></span> Teksts baltajā krāsā                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80562_238926" name="resp80562_"  type="radio" value="238926" />        </td>
+        <td class="c1 text ">
+          <label for="resp80562_238926">
+            <span class="anun">b<span class="anumsep">.</span></span> Nekas                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80562_238925" name="resp80562_" checked="checked" type="radio" value="238925" />        </td>
+        <td class="c1 text ">
+          <label for="resp80562_238925">
+            <span class="anun">c<span class="anumsep">.</span></span> Teksts krāsā, kas bija izmantota pēdējā programmā                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80575" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>4</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br /> int x=5;<br />printf(&quot;%d&quot;, &amp;x);<br /></div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80575_238941" name="resp80575_" checked="checked" type="radio" value="238941" />        </td>
+        <td class="c1 text ">
+          <label for="resp80575_238941">
+            <span class="anun">a<span class="anumsep">.</span></span> x adrese                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80575_238942" name="resp80575_"  type="radio" value="238942" />        </td>
+        <td class="c1 text ">
+          <label for="resp80575_238942">
+            <span class="anun">b<span class="anumsep">.</span></span> Kļūda                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80575_238940" name="resp80575_"  type="radio" value="238940" />        </td>
+        <td class="c1 text ">
+          <label for="resp80575_238940">
+            <span class="anun">c<span class="anumsep">.</span></span> 5                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80574" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>5</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str[]=&quot;a&quot;;<br />printf(&quot;%-4s&quot;, str);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80574_"   value="a"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80553" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>6</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šīs darbības rezultātā?<br />printf(&quot;Kur atrodas kursors\n&quot;);<br /></div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80553_238891" name="resp80553_"  type="radio" value="238891" />        </td>
+        <td class="c1 text ">
+          <label for="resp80553_238891">
+            <span class="anun">a<span class="anumsep">.</span></span> Kur atrodas kursors (->rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80553_238889" name="resp80553_"  type="radio" value="238889" />        </td>
+        <td class="c1 text ">
+          <label for="resp80553_238889">
+            <span class="anun">b<span class="anumsep">.</span></span> Kur atrodas kursors (->uzreiz aiz teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80553_238890" name="resp80553_"  type="radio" value="238890" />        </td>
+        <td class="c1 text ">
+          <label for="resp80553_238890">
+            <span class="anun">c<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamajā rindiņā pozīcijā aiz izvadīta teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80553_238888" name="resp80553_" checked="checked" type="radio" value="238888" />        </td>
+        <td class="c1 text ">
+          <label for="resp80553_238888">
+            <span class="anun">d<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamās rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80568" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>7</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />int x=5;<br />printf(x);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80568_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80564" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>8</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />int x=5;<br />printf(&quot;%4.2d&quot;, x);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80564_"   value="05"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80572" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>9</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str='a';<br />puts(a);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80572_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80569" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>10</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str=&quot;a&quot;;<br />printf(&quot;%c&quot;, str);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80569_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80563" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>11</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />int x=5;<br />printf(&quot;%4.2f&quot;, x);<br /><br />Piezīmes:<br />1. Tukšo pozīciju vietā, jāraksta atstarpes<br />2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br />3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80563_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80556" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>12</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šīs darbības rezultātā?<br /> printf(&quot;Kur atrodas kursors\t&quot;);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80556_238901" name="resp80556_"  type="radio" value="238901" />        </td>
+        <td class="c1 text ">
+          <label for="resp80556_238901">
+            <span class="anun">a<span class="anumsep">.</span></span> Kur atrodas kursors (->8 pozīciju attālumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80556_238903" name="resp80556_"  type="radio" value="238903" />        </td>
+        <td class="c1 text ">
+          <label for="resp80556_238903">
+            <span class="anun">b<span class="anumsep">.</span></span> Kur atrodas kursors (->rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80556_238900" name="resp80556_"  type="radio" value="238900" />        </td>
+        <td class="c1 text ">
+          <label for="resp80556_238900">
+            <span class="anun">c<span class="anumsep">.</span></span> Kur atrodas kursors (->6 pozīciju attālumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80556_238902" name="resp80556_" checked="checked" type="radio" value="238902" />        </td>
+        <td class="c1 text ">
+          <label for="resp80556_238902">
+            <span class="anun">d<span class="anumsep">.</span></span> Kur atrodas kursors (->tik pozīciju attālumā, cik norādīts opcijās)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80558" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>13</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />scanf(&quot;%s&quot;, virkne); //virkne - Es mācos RTU<br />puts(virkne);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80558_238908" name="resp80558_"  type="radio" value="238908" />        </td>
+        <td class="c1 text ">
+          <label for="resp80558_238908">
+            <span class="anun">a<span class="anumsep">.</span></span> Es mācos RTU (->kursors nākamajā rindiņā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80558_238910" name="resp80558_"  type="radio" value="238910" />        </td>
+        <td class="c1 text ">
+          <label for="resp80558_238910">
+            <span class="anun">b<span class="anumsep">.</span></span> Nekas                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80558_238909" name="resp80558_" checked="checked" type="radio" value="238909" />        </td>
+        <td class="c1 text ">
+          <label for="resp80558_238909">
+            <span class="anun">c<span class="anumsep">.</span></span> Es (->kursors nākamajā rindiņā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80558_238911" name="resp80558_"  type="radio" value="238911" />        </td>
+        <td class="c1 text ">
+          <label for="resp80558_238911">
+            <span class="anun">d<span class="anumsep">.</span></span> Es mācos RTU (->kursors aiz teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80561" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>14</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />virkne - Es mācos RTU<br /><br />putchar(virkne);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80561_238922" name="resp80561_"  type="radio" value="238922" />        </td>
+        <td class="c1 text ">
+          <label for="resp80561_238922">
+            <span class="anun">a<span class="anumsep">.</span></span> Es mācos RTU                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80561_238920" name="resp80561_" checked="checked" type="radio" value="238920" />        </td>
+        <td class="c1 text ">
+          <label for="resp80561_238920">
+            <span class="anun">b<span class="anumsep">.</span></span> Kļūdas paziņojums (kompilators)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80561_238923" name="resp80561_"  type="radio" value="238923" />        </td>
+        <td class="c1 text ">
+          <label for="resp80561_238923">
+            <span class="anun">c<span class="anumsep">.</span></span> Nekas                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80561_238921" name="resp80561_"  type="radio" value="238921" />        </td>
+        <td class="c1 text ">
+          <label for="resp80561_238921">
+            <span class="anun">d<span class="anumsep">.</span></span> E                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80566" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>15</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />float x=10.5;<br />printf(&quot;%-6.2f&quot;, x);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80566_"   value="10.50"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80571" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>16</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str='a';<br />printf(&quot;%s&quot;, str);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80571_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80565" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>17</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />float x=5.2;<br />printf(&quot;%5.2f&quot;, x);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80565_"   value="5.20"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80555" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>18</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šīs darbības rezultātā?<br />printf(&quot;Kur atrodas kursors\r&quot;);<br /></div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80555_238898" name="resp80555_"  type="radio" value="238898" />        </td>
+        <td class="c1 text ">
+          <label for="resp80555_238898">
+            <span class="anun">a<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamajā rindiņā pozīcijā aiz izvadīta teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80555_238897" name="resp80555_"  type="radio" value="238897" />        </td>
+        <td class="c1 text ">
+          <label for="resp80555_238897">
+            <span class="anun">b<span class="anumsep">.</span></span> Kur atrodas kursors (->uzreiz aiz teikuma)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80555_238899" name="resp80555_" checked="checked" type="radio" value="238899" />        </td>
+        <td class="c1 text ">
+          <label for="resp80555_238899">
+            <span class="anun">c<span class="anumsep">.</span></span> Kur atrodas kursors (->rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80555_238896" name="resp80555_"  type="radio" value="238896" />        </td>
+        <td class="c1 text ">
+          <label for="resp80555_238896">
+            <span class="anun">d<span class="anumsep">.</span></span> Kur atrodas kursors (->nākamās rindiņas sākumā)                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80560" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>19</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />virkne - Es mācos RTU<br /><br />for(i=0; i&lt;6; i++)<br /> printf(&quot;%c&quot;, virkne[i]);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80560_238916" name="resp80560_"  type="radio" value="238916" />        </td>
+        <td class="c1 text ">
+          <label for="resp80560_238916">
+            <span class="anun">a<span class="anumsep">.</span></span> 6 reizes tiks izvadīta virkne                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80560_238918" name="resp80560_" checked="checked" type="radio" value="238918" />        </td>
+        <td class="c1 text ">
+          <label for="resp80560_238918">
+            <span class="anun">b<span class="anumsep">.</span></span> Es māc                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80560_238919" name="resp80560_"  type="radio" value="238919" />        </td>
+        <td class="c1 text ">
+          <label for="resp80560_238919">
+            <span class="anun">c<span class="anumsep">.</span></span> Nekas                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80560_238917" name="resp80560_"  type="radio" value="238917" />        </td>
+        <td class="c1 text ">
+          <label for="resp80560_238917">
+            <span class="anun">d<span class="anumsep">.</span></span> Es mā                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80570" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>20</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str[]=&quot;a&quot;;<br />printf(&quot;%c&quot;, str);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80570_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80573" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>21</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />char str[]=&quot;a&quot;;<br />printf(&quot;%5s&quot;, str);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80573_"   value="a"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80567" class="que shortanswer clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>22</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna? <br /><br />int x=7;<br />printf(&quot;%d&quot;);<br /><br /> Piezīmes:<br /> 1. Tukšo pozīciju vietā, jāraksta atstarpes<br /> 2. Ja uzskatāt, ka būs kļūdas paziņojums, jāraksta &quot;kļūda&quot;<br /> 3. Ja uzskatāt, ka nekas nebūs izvadīts, jāraksta &quot;nekas&quot;</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Atbilde:   </div>
+
+  <div class="answer">
+    <input type="text" class="" readonly="readonly"  name="resp80567_"   value="kļūda"  size="80"/>
+      </div>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+<div id="q80559" class="que multichoice clearfix">
+  <div class="info">
+    <span class="no"><span class="accesshide">Question </span>23</span>
+          <div class="grade">
+        Punkti: 1      </div>
+      </div>
+  <div class="content">
+    <div class="qtext">
+  Kas tiks izvadīts uz ekrāna šo darbību rezultātā?<br />virkne - Es mācos RTU<br /><br />for(i=0; i&lt;5; i++)<br /> printf(&quot;%s&quot;, virkne);</div>
+
+
+<div class="ablock clearfix">
+  <div class="prompt">
+    Izvēlieties vienu atbildi.  </div>
+
+  <table class="answer">
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80559_238912" name="resp80559_" checked="checked" type="radio" value="238912" />        </td>
+        <td class="c1 text ">
+          <label for="resp80559_238912">
+            <span class="anun">a<span class="anumsep">.</span></span> 5 reizes būs izvadīta visa virkne                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80559_238913" name="resp80559_"  type="radio" value="238913" />        </td>
+        <td class="c1 text ">
+          <label for="resp80559_238913">
+            <span class="anun">b<span class="anumsep">.</span></span> Es mā                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r0">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80559_238915" name="resp80559_"  type="radio" value="238915" />        </td>
+        <td class="c1 text ">
+          <label for="resp80559_238915">
+            <span class="anun">c<span class="anumsep">.</span></span> Nekas                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+          <tr class="r1">
+        <td class="c0 control">
+          <input disabled="disabled" id="resp80559_238914" name="resp80559_"  type="radio" value="238914" />        </td>
+        <td class="c1 text ">
+          <label for="resp80559_238914">
+            <span class="anun">d<span class="anumsep">.</span></span> Es māc                      </label>
+        </td>
+        <td class="c0 feedback">
+                  </td>
+      </tr>
+      </table>
+    </div>
+    <div class="grading">
+      <div class="correctness  correct">Pareizi</div><div class="gradingdetails">Šī iesniegtā materiāla atzīmes: 1/1.</div>    </div>  </div>
+</div>
+
+<div class="controls">
+<div class="singlebutton"><form action="view.php" method="get"><div><input type="hidden" name="id" value="199918" /><input type="submit" value="Pabeigt pārskatīšanu"   /></div></form></div></div>
+</div></div></div>
+<div id="content-bb" class="bb"><div>&nbsp;</div></div>
+</div><!-- end container Content -->
+<!-- START OF FOOTER -->
+<div id="footer" class="wrap wraplevel1 ">
+<div id="footer-bt" class="bt"><div>&nbsp;</div></div>
+<div id="footer-i1" class="i1"><div id="footer-i2" class="i2"><div id="footer-i3" class="i3"><p class="helplink"></p><div class="logininfo">Jūs esat pieslēdzies kā <a  href="https://moodle.rtu.lv/moodle/user/view.php?id=118327&amp;course=57532">Šarņeckis Eduards</a>  (<a  href="https://moodle.rtu.lv/moodle/login/logout.php?sesskey=hpCosJ3N4F">Atslēgties</a>)</div><div class="homelink"><a  href="https://moodle.rtu.lv/moodle/course/view.php?id=57532">DIP208(1),11/12-R</a></div></div></div></div>
+<div id="footer-bb" class="bb"><div>&nbsp;</div></div>
+</div></div> <!-- end page div -->
+<script type="text/javascript">
+/* <![CDATA[ */
+    script.init();
+/* ]]> */
+</script>
+</body>
+</html>

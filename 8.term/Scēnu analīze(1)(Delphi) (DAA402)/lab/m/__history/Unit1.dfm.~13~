@@ -1,0 +1,120 @@
+object Form1: TForm1
+  Left = 382
+  Top = 247
+  Caption = 'Form1'
+  ClientHeight = 551
+  ClientWidth = 1280
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 400
+    Top = 32
+    Width = 673
+    Height = 481
+    Proportional = True
+  end
+  object Image2: TImage
+    Left = 32
+    Top = 48
+    Width = 256
+    Height = 100
+    OnMouseMove = Image2MouseMove
+  end
+  object Label1: TLabel
+    Left = 32
+    Top = 168
+    Width = 31
+    Height = 13
+    Caption = 'Levels'
+  end
+  object Label2: TLabel
+    Left = 32
+    Top = 190
+    Width = 36
+    Height = 13
+    Caption = 'H_Start'
+  end
+  object Label3: TLabel
+    Left = 31
+    Top = 217
+    Width = 33
+    Height = 13
+    Caption = 'H_End'
+  end
+  object Button1: TButton
+    Left = 176
+    Top = 160
+    Width = 105
+    Height = 49
+    Caption = 'Normalize'
+    TabOrder = 0
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 176
+    Top = 224
+    Width = 105
+    Height = 49
+    Caption = 'Repaint'
+    TabOrder = 1
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 176
+    Top = 288
+    Width = 105
+    Height = 49
+    Caption = 'Normalize RGB'
+    TabOrder = 2
+    OnClick = Button3Click
+  end
+  object Edit1: TEdit
+    Left = 74
+    Top = 187
+    Width = 73
+    Height = 21
+    Enabled = False
+    TabOrder = 3
+    Text = '0'
+  end
+  object Edit2: TEdit
+    Left = 74
+    Top = 214
+    Width = 73
+    Height = 21
+    TabOrder = 4
+    Text = '255'
+  end
+  object MainMenu1: TMainMenu
+    object File1: TMenuItem
+      Caption = 'Fails'
+      object Open1: TMenuItem
+        Caption = 'Open'
+        OnClick = Open1Click
+      end
+    end
+    object Uzdevumi1: TMenuItem
+      Caption = 'Uzdevumi'
+      object Lab11: TMenuItem
+        Caption = 'Kontrasta uzlabosana'
+      end
+      object Lab21: TMenuItem
+        Caption = 'Kontura izdalisana'
+      end
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 'Atteli (*.bmp, *.jpg)|*.bmp;*.jpg'
+    Left = 32
+  end
+end

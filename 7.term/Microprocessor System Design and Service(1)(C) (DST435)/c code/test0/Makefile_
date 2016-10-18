@@ -1,0 +1,43 @@
+#--------------------------------------------------
+#
+#
+# Universal makefile
+# to make type in terminal: make
+# to tar files type: make tar
+# to clean object files and executable: make clean
+#
+#
+#--------------------------------------------------
+MAIN = hello
+CC=arm-linux-gnueabi-gcc
+CFLAGS= #-c -Wall
+LDFLAGS=-static -Wl, -elf2flt #-pthread #-lX11
+SOURCES=$(MAIN).c
+HEADERS=
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE = $(MAIN)
+
+$(eval ZIPPER := $(MAIN)_$(shell mktemp -u XXXXXXX))
+$(eval DELETE := $(shell find -maxdepth 1 -executable -type f | cut -d'.' -f2| cut -d'/' -f2))
+
+
+all: $(SOURCES) $(EXECUTABLE)
+		#time ./$(EXECUTABLE)
+		file $(EXECUTABLE)
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+.c.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+$(OBJECTS):$(HEADERS)
+
+clean:
+		\rm $(OBJECTS) $(DELETE)
+tar:
+	tar cfv $(ZIPPER).tar $(SOURCES) $(HEADERS) $(OBJECTS) \
+		Makefile $(EXECUTABLE)
+zip:
+	zip $(ZIPPER).zip $(SOURCES) $(HEADERS) $(OBJECTS) \
+		Makefile $(EXECUTABLE)
+

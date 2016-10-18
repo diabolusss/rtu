@@ -1,0 +1,19 @@
+﻿Eksāmena jautājumi
+
+1.Tēlu atpazīšanas uzdevums.
+2.Vidējais un empīriskais risks atpazīšanas uzdevumos.
+3.Salīdzināšanas ar etalonu metode.
+4.Fiksa – Hodžesa metode.
+5.Optimālā atdaloša hiperplakne.
+6.Komitēju lēmumu kārtulas.
+7.Svērtais balsošanas algoritms.
+8.Atpazīstošie neironu tikli. Perceptrons.
+9.Mākslīgais neirons. "Back propogation" algoritms.
+10.Klastera analīze. Forel algoritms.
+11.Klastera analīze. MiniMax algoritms.
+12.Bezje līkne.
+13.Bezje virsmas.
+14.Attēlu apstrāde. Kontrasta modificēšana.
+15.Kontūru izdalīšana. Robertsa operators.
+16.Previt, Sobeļa operātori.
+17.Trokšņu attīrīšana

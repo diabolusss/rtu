@@ -1,0 +1,148 @@
+Loaded 83 symbols
+Program header 0 , 300 bytes of data at vaddr=0x00000000, paddr=0x00000000, flags=00000005 loading
+Program header 1 , 0 bytes of data at vaddr=0x00800100, paddr=0x0000012c, flags=00000006 loading
+Program header 2 , 0 bytes of data at vaddr=0x00800100, paddr=0x00800100, flags=00000006 loading
+[LINE] Include dir: 'C:/WinAVR/avr/include'
+Line 5: 030400CA-001500D2
+Line 6: 001500D2-001600D6
+Line 8: 001600D6-001600DC
+Line 10: 001600DC-001500DE
+Line 11: 001500DE-001500E0
+Line 12: 001500E0-001500E2
+Line 13: 001500E2-001600E4
+Line 15: 001600E4-001500E6
+Line 16: 001500E6-001500E8
+Line 17: 001500E8-040400F2
+Loaded source file C:/WinAVR/avr/include\util/delay.h
+Line 25: 030400F8-001A00FC
+Line 31: 001A00FC-00150120
+Line 32: 00150120-00160124
+Line 34: 00160124-00160128
+Line 36: 00160128-0100012C
+COMPILE UNIT [00000686]
+ statement list = 00000000
+ high pc = [0000012C]
+ low pc = [000000CA]
+ producer = "GNU C 3.4.6"
+ language = 00000001
+ name = "adc.c"
+ comp dir = "C:\Work\Signal Processing\Maked Labs\Lab1 - Charon II Atmega 128 ADC\For Proteus 7\Code"
+ BASE TYPE [0000069C]
+  name = "signed char"
+  byte size = 00000001
+  encoding = 00000006
+ BASE TYPE [000006A3]
+  name = "unsigned char"
+  byte size = 00000001
+  encoding = 00000008
+ BASE TYPE [000006AA]
+  name = "int"
+  byte size = 00000002
+  encoding = 00000005
+ TYPEDEF [000006B1]
+  name = "uint16_t"
+  decl file = 00000001
+  decl line = 00000077
+  type = REF 000006BC
+ BASE TYPE [000006BC]
+  name = "unsigned int"
+  byte size = 00000002
+  encoding = 00000007
+ BASE TYPE [000006C3]
+  name = "long int"
+  byte size = 00000004
+  encoding = 00000005
+ BASE TYPE [000006CA]
+  name = "long unsigned int"
+  byte size = 00000004
+  encoding = 00000007
+ BASE TYPE [000006D1]
+  name = "long long int"
+  byte size = 00000008
+  encoding = 00000005
+ BASE TYPE [000006D8]
+  name = "long long unsigned int"
+  byte size = 00000008
+  encoding = 00000007
+ SUBPROGRAM [000006DF]
+  sibling = REF 0000074B
+  external = 00000001
+  name = "main"
+  decl file = 00000003
+  decl line = 00000005
+  prototyped = 00000001
+  type = REF 000006AA
+  low pc = [000000CA]
+  high pc = [0000012C]
+  frame base (8 bytes) = R32 : R33 : 
+  LEXICAL BLOCK [000006FD]
+   low pc = [000000F2]
+   high pc = [0000012A]
+   VARIABLE [00000702]
+    name = "a"
+    decl file = 00000003
+    decl line = 00000015
+    type = REF 000006AA
+   VARIABLE [0000070B]
+    name = "b"
+    decl file = 00000003
+    decl line = 00000015
+    type = REF 000006AA
+   INLINED SUBROUTINE [00000714]
+    abstract origin = REF 0000074B
+    low pc = [000000F2]
+    high pc = [000000F8]
+    FORMAL PARAMETER [0000071D]
+     abstract origin = REF 00000758
+    LEXICAL BLOCK [00000722]
+     low pc = [000000F2]
+     high pc = [000000F8]
+     VARIABLE [00000727]
+      abstract origin = REF 00000763
+     VARIABLE [0000072C]
+      abstract origin = REF 0000076E
+     INLINED SUBROUTINE [00000731]
+      abstract origin = REF 00000781
+      low pc = [000000F2]
+      high pc = [000000F8]
+      FORMAL PARAMETER [0000073A]
+       abstract origin = REF 0000078A
+       location (6 bytes) = R24 : R25 : 
+ SUBPROGRAM [0000074B]
+  sibling = REF 0000077A
+  name = "_delay_ms"
+  decl file = 00000004
+  decl line = 000000B1
+  prototyped = 00000001
+  inline = 00000003
+  FORMAL PARAMETER [00000758]
+   name = "__ms"
+   decl file = 00000004
+   decl line = 000000B0
+   type = REF 0000077A
+  VARIABLE [00000763]
+   name = "__ticks"
+   decl file = 00000004
+   decl line = 000000B2
+   type = REF 000006B1
+  VARIABLE [0000076E]
+   name = "__tmp"
+   decl file = 00000004
+   decl line = 000000B3
+   type = REF 0000077A
+ BASE TYPE [0000077A]
+  name = "double"
+  byte size = 00000004
+  encoding = 00000004
+ SUBPROGRAM [00000781]
+  name = "_delay_loop_2"
+  decl file = 00000004
+  decl line = 0000007D
+  prototyped = 00000001
+  inline = 00000003
+  FORMAL PARAMETER [0000078A]
+   name = "__count"
+   decl file = 00000004
+   decl line = 0000007C
+   type = REF 000006B1
+

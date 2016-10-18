@@ -1,0 +1,13 @@
+Jautajumi ekzameni Glaz
+1. Scenu analize
+2.Ievads scenu analize (ko tas nozime scene, kada atskariba bus ja runasim tikai pa attelu)
+3. Sintastiska pieeja scenu analize(ko tas nozime)
+4.Primaro elementu izvele(paradit kas ir attels)
+5.Scenu analizze(no lejas uz augshu un otradi)
+6.Attelu konturu izdalishana(gradienda vertiba,kukaina algoritms(parastais un ar atgrieshanos))
+7.Kontrastu modificeshana
+8.Medianu filtreshana
+9.Segmentacija(sleikshna , apgabala ...)
+10.Konturu punktu izdalishana.
+11. Saspieshana( bez zudumiem, ar zudumiem(sin,cos))
+12.Objektu detekshana scena(ka izdalit tristuris, taisnturis,...)

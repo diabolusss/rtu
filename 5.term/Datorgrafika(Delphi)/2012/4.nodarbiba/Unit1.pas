@@ -1,0 +1,1087 @@
+unit Unit1;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ExtCtrls, JPEG, ExtDlgs, StdCtrls, Math, ComCtrls;
+
+type
+  TRGB = record      // tiks glabati dati par RGB modeli katram attela pikselim
+    R, G, B: byte;          // sarkanas, zalas un zilas krasas pikseli
+    invR, invG, invB, intensity: byte ;
+    colR, colG, colB: byte;
+    blurint, blurRed, blurGreen, blurBlue, emboss, sharpenint:byte;
+    normalizeRed, normalizeGreen, NormalizeBlue:byte;
+  end;
+
+  THistogram= array [0..256] of record
+    i:integer;
+   end;
+
+
+ TRGBTripleArray = Array [Word] of TRGBTriple;
+ pRGBTripleArray = ^TRGBTripleArray;
+
+
+type
+  TForm1 = class(TForm)
+    Image1: TImage;
+    MainMenu1: TMainMenu;
+    File1: TMenuItem;
+    Open1: TMenuItem;
+    Open: TOpenPictureDialog;
+    ColorSystems: TRadioGroup;
+    Chanels: TRadioGroup;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    SavePictureDialog1: TSavePictureDialog;
+    SaveAs1: TMenuItem;
+    Edit1: TEdit;
+    Button4: TButton;
+    Image2: TImage;
+    Label1: TLabel;
+    shadows: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Button5: TButton;
+    Blur: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Button10: TButton;
+    Label4: TLabel;
+    procedure ReadFromImage(bmp:TBitmap);
+    procedure OpenImage;
+    procedure Draw(number:integer);
+    procedure Open1Click(Sender: TObject);
+    procedure ChanelsClick(Sender: TObject);
+    procedure ColorSystemsClick(Sender: TObject);
+    procedure Inverse;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure SaveAs1Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure DrawHistogram(HRGB: THistogram);
+    procedure FormCreate(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure BlurClick(Sender: TObject);
+    procedure Blur1(a, b, c, d:integer);
+    procedure BlurColor(a, b, c, d:integer);
+    procedure Emboss1;
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure HistogramNormalize(var histogram: THistogram; RGBnum: integer; ORStart: integer; ORend: integer);
+    procedure Button9Click(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure new_histogram();
+    procedure Image2MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    back:boolean;
+
+  end;
+
+var
+  Form1: TForm1;
+  Image, Reserve, new: array of array of TRGB;
+  load, check:boolean;
+  rgbHist,redhist, greenhist, bluehist:THistogram;
+  Median:integer;
+  normred, normgreen, normblue:boolean;
+implementation
+
+uses RGBch, Compare;
+
+{$R *.dfm}
+
+procedure TForm1.DrawHistogram(HRGB: THistogram);
+var i,j: integer;
+    row: pRGBTripleArray;
+    Bitmap: TBitmap;
+
+begin
+    Bitmap := TBitmap.Create;        //veidojas jauns bitmap
+    Bitmap.Width := 256;
+    Bitmap.Height := 100;
+    Bitmap.PixelFormat := pf24bit;
+
+
+    for j := 0 to Bitmap.Height - 1 do
+    begin
+      row := Bitmap.ScanLine[j];
+      for i := 0 to Bitmap.Width - 1 do
+       begin
+
+      //nosaka hitogrammas apgabalus
+          if j<(100-round(HRGB[i].I/HRGB[256].I*100))
+          then
+          begin
+            row[i].rgbtRed := 200;//peleka krasa
+            row[i].rgbtGreen := 200;
+            row[i].rgbtBlue := 200;
+          end
+          else
+          begin
+          //ja ir intensitates vertiba
+            row[i].rgbtRed := 0;
+            row[i].rgbtGreen := 0;
+            row[i].rgbtBlue := 0;
+          end;
+       end;
+      end;
+      //izvada attelu
+
+
+         Image2.Picture.Graphic:=Bitmap;
+         Image2.Canvas.Pen.Color:=clRed;
+         Image2.Canvas.MoveTo(85, 0);
+         Image2.Canvas.LineTo(85, 100);
+         Image2.Canvas.Pen.Color:=clGreen;
+         Image2.Canvas.MoveTo(170, 0);
+         Image2.Canvas.LineTo(170, 100);
+
+
+
+         Image2.Canvas.Pen.Color:=clYellow;
+         Image2.Canvas.MoveTo(Median, 0);
+         Image2.Canvas.LineTo(Median, 100);
+         Label1.Caption:='Median RGB '+IntToStr(Median);
+
+      Bitmap.Free;
+end;
+
+procedure TForm1.ReadFromImage(bmp:TBitmap);
+var
+i, j, maks, p: integer;
+row: pRGBTripleArray;
+
+begin
+
+for i := 0 to 256 do
+  begin
+   rgbHist[i].I:=0;//rgb
+   redhist[i].i:=0;  //red
+   greenhist[i].i:=0;  //green
+   bluehist[i].i:=0;  //blue
+  end;
+
+
+ SetLength(Image, bmp.Width, bmp.Height);  //dinamiska masiva defineshana
+ SetLength(new, Bmp.Width, Bmp.Height);
+ SetLength(reserve, Bmp.Width, Bmp.Height);
+
+  for j := 0 to Bmp.Height - 1 do
+    begin
+     row := Bmp.ScanLine[j];  //skeneshanas procesa laika piekljuve pie pikseliem
+      for i := 0 to Bmp.Width - 1 do
+       begin
+
+       if check=false then
+         begin
+          Image[i, j].R := row[i].rgbtRed; //saglabajam lauka R datus par pikselja sarkanas krasas vertibu
+          Image[i, j].G := row[i].rgbtGreen; // saglabajam datus par pikselja zaljas krasas vertibu
+          Image[i, j].B := row[i].rgbtBlue;  //saglabajam datus par pikselja zilas krasas vertibu
+          Image[i, j].Intensity := (77 * Image[i, j].R + 150 * Image[i, j].G + 29 * Image[i, j].B) DIV 256;
+
+          new[i,j].R:=row[i].rgbtRed;
+          new[i,j].G:=row[i].rgbtGreen;
+          new[i,j].B:=row[i].rgbtBlue;
+          new[i,j].intensity:=(77 * new[i, j].R + 150 * new[i, j].G + 29 * new[i, j].B) DIV 256;
+
+          rgbHist[image[i,j].Intensity].I:=rgbHist[image[i,j].Intensity].I+1;
+          redHist[image[i,j].r].I:=redHist[image[i,j].r].I+1;
+          greenHist[image[i,j].g].I:=greenHist[image[i,j].g].I+1;
+          blueHist[image[i,j].b].I:=blueHist[image[i,j].b].I+1;
+         end
+         else
+         begin
+          Reserve[i, j].R := row[i].rgbtRed; //saglabajam lauka R datus par pikselja sarkanas krasas vertibu
+          Reserve[i, j].G := row[i].rgbtGreen; // saglabajam datus par pikselja zaljas krasas vertibu
+          Reserve[i, j].B := row[i].rgbtBlue;  //saglabajam datus par pikselja zilas krasas vertibu
+          Reserve[i, j].Intensity := (77 * Reserve[i, j].R + 150 * Reserve[i, j].G + 29 * Reserve[i, j].B) DIV 256;
+
+          rgbHist[reserve[i,j].Intensity].I:=rgbHist[reserve[i,j].Intensity].I+1;
+          redHist[reserve[i,j].r].I:=redHist[reserve[i,j].r].I+1;
+          greenHist[reserve[i,j].g].I:=greenHist[reserve[i,j].g].I+1;
+          blueHist[reserve[i,j].b].I:=blueHist[reserve[i,j].b].I+1;
+         end;
+       end;
+    end;
+
+
+  maks:=0;
+  p:=0;
+  for i:=0 to 256 do
+  begin
+   rgbHist[256].I:=Max(rgbHist[256].I, rgbHist[i].I);
+   redhist[256].i:=Max(redHist[256].I, redHist[i].I);
+   greenhist[256].i:=Max(greenHist[256].I, greenHist[i].I);
+   bluehist[256].i:=Max(blueHist[256].I, blueHist[i].I);
+
+
+    if maks<rgbHist[i].I then
+     begin
+       maks:=rgbHist[i].I;
+       p:=i;
+       Median:=p;
+     end;
+
+  end;
+end;
+
+
+procedure TForm1.SaveAs1Click(Sender: TObject);
+var
+JpegImage: TJpegImage;
+
+begin
+  if image1.Picture.Graphic=nil then  showmessage('Can not save picture') //ja nav atverts attels
+   else
+    begin
+      if (SavePictureDialog1.Execute)  then //ja tika izsaukts save dialogs
+       begin
+        if (SavePictureDialog1.FilterIndex=1) or (SavePictureDialog1.FilterIndex=2) then //.jpg vai .jpeg
+             begin
+              JpegImage := TJpegImage.Create;  //veido jpg failu
+              JpegImage.Assign(Image1.Picture.Bitmap); //bmp tiek konvertets uz jpg
+              JpegImage.CompressionQuality:=100;  //jpg saspieshanas kvalitate
+              JpegImage.Compress;  //saspieshanas funkcija
+              JpegImage.SaveToFile(SavePictureDialog1.FileName+'.jpg'); //attels tiek saglabats ar .jpg
+              JpegImage.Destroy; //iznicinam no atminas jpg
+             end;
+           if (SavePictureDialog1.FilterIndex=3) then   // .bmp
+            begin
+              image1.Picture.SaveToFile(SavePictureDialog1.FileName+'.bmp'); //attels tiek saglabats ar .bmp
+            end;
+
+       end;
+    end;
+
+end;
+
+procedure TForm1.Inverse;
+var i,j, red, green, blue:integer;
+begin
+
+ for i:= 0 to high(image) do
+   for j:= 0 to high(image[0])-1 do
+       begin
+         red:=255-image[i,j].R;
+         green:=255-image[i,j].G;
+         blue:=255-image[i,j].B;
+
+         image[i,j].invR:=red;
+         image[i,j].invG:=green;
+         image[i,j].invB:=blue;
+
+       end;
+end;
+
+procedure TForm1.Open1Click(Sender: TObject);
+begin
+ check:=false;
+
+ SetLength(Reserve, 0, 0);
+ SetLength(Image, 0, 0);
+ SetLength(New, 0, 0);
+
+ Form2.changed:=false;
+ OpenImage;
+
+ if image1.Width> form1.Width/3 then
+    begin
+     Form1.Top:=0;
+     Form1.Left:=0;
+     Form1.Width:=screen.Width;
+     HorzScrollBar.Visible:= True;
+     HorzScrollBar.Range:= Form1.Width * 2;
+    end;
+
+    if image1.Height> form1.Height/2 then
+    begin
+     Form1.Top:=0;
+     Form1.Left:=0;
+     Form1.Height:=screen.Height-80;
+     VertScrollBar.Visible:= True;
+     VertScrollBar.Range:= Form1.Height * 2;
+    end;
+
+ back:=false;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var i,j:integer;
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Inverse;
+    Draw(4);
+    back:=false;
+  end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var i,j:integer;
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Draw(5);
+    back:=false;
+   end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+ back:=true;
+ Draw(6);
+ Chanels.ItemIndex:=0;
+ normred:=false;
+ normgreen:=false;
+ normblue:=false;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Image1.AutoSize:=true;
+    Image1.AutoSize:=false;
+    Image1.Width:=Image1.Width*(StrToInt(Edit1.Text));
+    Image1.Height:=Image1.Height*(StrToInt(Edit1.Text));
+    Image1.Stretch:=true;
+
+    if image1.Width> form1.Width/3 then
+    begin
+     Form1.Top:=0;
+     Form1.Left:=0;
+     Form1.Width:=screen.Width;
+     HorzScrollBar.Visible:= True;
+     HorzScrollBar.Range:= Form1.Width * StrToInt(Edit1.Text);
+    end;
+    if image1.Height> form1.Height/2 then
+    begin
+     Form1.Top:=0;
+     Form1.Left:=0;
+     Form1.Height:=screen.Height-80;
+     VertScrollBar.Visible:= True;
+     VertScrollBar.Range:= Form1.Height * StrToInt(Edit1.Text);
+    end;
+
+   if Edit1.Text='1' then
+    begin
+     if image1.width<form1.Width then
+       begin
+        HorzScrollBar.Visible:= false;
+        form1.Width:=screen.Width;
+       end;// else
+        //form1.Width:=screen.Width;
+
+     if image1.Height<form1.Height  then
+       begin
+        VertScrollBar.Visible:= false;
+        form1.Height:=screen.Height;
+       end;// else
+        //form1.Height:=screen.Height;
+
+    end;
+
+   end;
+end;
+
+procedure TForm1.ChanelsClick(Sender: TObject);
+var temp:integer;
+begin
+ if (colorsystems.ItemIndex=0) and (load=true) then
+ begin
+   case chanels.ItemIndex of
+      0:begin
+        if (normred=false) or (normgreen=false) or (normblue=false) then
+         Draw(0)  //rgb
+         else
+         Draw(12);
+        end;
+      1:begin
+        if normred=false then
+         Draw(1)   //red
+        else Draw(13);
+        end;
+      2:begin
+        if normgreen=false then
+         Draw(2)    //green
+         else Draw(14);
+        end;
+      3:begin
+        if normblue=false then
+         Draw(3)      //blue
+          else Draw(15);
+        end;
+   end;
+ end;
+end;
+
+procedure TForm1.ColorSystemsClick(Sender: TObject);
+begin
+ chanels.Items.Clear;
+ case colorSystems.ItemIndex of
+   0: begin
+       with chanels.Items do
+         begin
+           add('RGB');
+           add('Red');
+           add('Green');
+           add('Blue');
+         end;
+      end;
+ end;
+end;
+
+procedure TForm1.Draw(number:integer);
+var
+  i, j: Integer;
+  row: pRGBTripleArray;
+  bmp: TBitmap;
+  RGB: TRGB;
+
+begin
+  if Length(Image) > 0 then //ja tika masivs nav tukshs
+   begin
+    bmp := TBitmap.Create;        //veidojam bitmap
+    bmp.Width := Length(Image);     //bitmap platums masiva garums
+    bmp.Height := Length(Image[0]);  //bitmap platums
+
+    bmp.PixelFormat := pf24bit;
+     //skenejam attelu
+    for j := 0 to bmp.Height - 1 do
+     begin
+      row := bmp.ScanLine[j];
+      for i := 0 to bmp.Width - 1 do
+      CASE number of
+        0: begin
+            back:=true;
+            row[i].rgbtRed := new[i, j].R;
+            row[i].rgbtGreen := new[i, j].G;
+            row[i].rgbtBlue := new[i, j].B;
+
+            image[i,j].R:=new[i,j].R;
+            image[i,j].G:=new[i,j].G;
+            image[i,j].B:=new[i,j].B;
+
+           end;
+        1: begin
+            back:=true;
+            row[i].rgbtRed :=new[i, j].R;    //pieshkiram katram bitmap pikselim datus par sarkano
+            row[i].rgbtGreen :=0;
+            row[i].rgbtBlue :=0;
+
+            image[i,j].R:=new[i,j].R;
+            image[i,j].G:=0;
+            image[i,j].B:=0;
+           end;
+
+        2: begin
+            back:=true;
+            row[i].rgbtRed := 0;
+            row[i].rgbtGreen := new[i, j].G;   //zalo
+            row[i].rgbtBlue :=0;
+
+            image[i,j].R:=0;
+            image[i,j].G:=new[i,j].G;
+            image[i,j].B:=0;
+
+           end;
+
+        3:begin
+            back:=true;
+            row[i].rgbtRed := 0;
+            row[i].rgbtGreen :=0;
+            row[i].rgbtBlue :=new[i, j].B;
+
+
+            image[i,j].R:=0;
+            image[i,j].G:=0;
+            image[i,j].B:=new[i,j].B;
+
+          end;
+
+         4:begin
+            row[i].rgbtRed := image[i,j].invR;
+            row[i].rgbtGreen :=image[i,j].invG;
+            row[i].rgbtBlue :=Image[i, j].invB;
+
+            Image[i,j].R:=Image[i,j].invR;
+            Image[i,j].G:=Image[i,j].invG;
+            Image[i,j].B:=Image[i,j].invB;
+          end;
+
+         5:begin
+            Image[i, j].Intensity := (77 * Image[i, j].R + 150 * Image[i, j].G + 29 * Image[i, j].B) DIV 256;
+            row[i].rgbtRed := image[i,j].intensity;
+            row[i].rgbtGreen :=image[i,j].intensity;
+            row[i].rgbtBlue :=Image[i, j].intensity;
+
+            Image[i,j].R:=Image[i,j].intensity;
+            Image[i,j].G:=Image[i,j].intensity;
+            Image[i,j].B:=Image[i,j].intensity;
+
+          end;
+
+          6:begin //Repaint
+            row[i].rgbtRed := new[i, j].R;
+            row[i].rgbtGreen := new[i, j].G;
+            row[i].rgbtBlue := new[i, j].B;
+
+            image[i,j].R:=new[i,j].R;
+            image[i,j].G:=new[i,j].G;
+            image[i,j].B:=new[i,j].B;
+            end;
+
+          7:begin
+             row[i].rgbtRed := image[i, j].colR;
+             row[i].rgbtGreen := image[i, j].colG;
+             row[i].rgbtBlue := image[i, j].colB;
+
+            end;
+
+          8:begin
+             row[i].rgbtRed := image[i, j].blurint;
+             row[i].rgbtGreen := image[i, j].blurint;
+             row[i].rgbtBlue := image[i, j].blurint;
+
+             image[i,j].R:=image[i,j].blurint;
+             image[i,j].g:=image[i,j].blurint;
+             image[i,j].B:=image[i,j].blurint;
+            end;
+
+          9:begin
+             row[i].rgbtRed := image[i, j].emboss;
+             row[i].rgbtGreen := image[i, j].emboss;
+             row[i].rgbtBlue := image[i, j].emboss;
+
+             image[i,j].R:=image[i,j].emboss;
+             image[i,j].g:=image[i,j].emboss;
+             image[i,j].B:=image[i,j].emboss;
+
+            end;
+
+          10:begin
+               row[i].rgbtRed := image[i, j].blurred;
+               row[i].rgbtGreen := image[i, j].blurgreen;
+               row[i].rgbtBlue := image[i, j].blurblue;
+
+               image[i,j].R:=image[i,j].blurred;
+               image[i,j].g:=image[i,j].blurgreen;
+               image[i,j].B:=image[i,j].blurblue;
+             end;
+
+           11:begin
+                row[i].rgbtRed := image[i,j].intensity;
+                row[i].rgbtGreen :=image[i,j].intensity;
+                row[i].rgbtBlue :=Image[i, j].intensity;
+
+                Image[i,j].R:=Image[i,j].intensity;
+                Image[i,j].G:=Image[i,j].intensity;
+                Image[i,j].B:=Image[i,j].intensity;
+              end;
+
+           12: begin
+                back:=true;
+                row[i].rgbtRed := image[i, j].NormalizeRed;
+                row[i].rgbtGreen := image[i, j].NormalizeGreen;
+                row[i].rgbtBlue := image[i, j].NormalizeBlue;
+
+                Image[i,j].R:=Image[i,j].normalizeRed;
+                Image[i,j].G:=Image[i,j].normalizeGreen;
+                Image[i,j].B:=Image[i,j].NormalizeBlue;
+               end;
+
+           13:begin
+                back:=true;
+                row[i].rgbtRed := image[i, j].NormalizeRed;
+                row[i].rgbtGreen := 0;
+                row[i].rgbtBlue := 0;
+
+                Image[i,j].R:=Image[i,j].normalizeRed;
+                Image[i,j].G:=0;
+                Image[i,j].B:=0;
+              end;
+
+
+           14:begin
+                row[i].rgbtRed := 0;
+                row[i].rgbtGreen := image[i, j].NormalizeGreen;
+                row[i].rgbtBlue :=0;
+
+                Image[i,j].R:=0;
+                Image[i,j].G:=Image[i,j].normalizeGreen;
+                Image[i,j].B:=0;
+              end;
+
+           15: begin
+                row[i].rgbtRed :=0;
+                row[i].rgbtGreen :=0;
+                row[i].rgbtBlue := image[i, j].NormalizeBlue;
+
+                Image[i,j].R:=0;
+                Image[i,j].G:=0;
+                Image[i,j].B:=Image[i,j].NormalizeBlue;
+               end;
+
+            16: begin
+                row[i].rgbtRed :=image[i,j].sharpenint;
+                row[i].rgbtGreen :=image[i,j].sharpenint;
+                row[i].rgbtBlue := image[i,j].sharpenint;
+
+                Image[i,j].R:=image[i,j].sharpenint;
+                Image[i,j].G:=image[i,j].sharpenint;
+                Image[i,j].B:=image[i,j].sharpenint;
+               end;
+       end;
+     end;
+
+    Image1.Picture.Bitmap.Width := bmp.Width;   //image platums =bitmap platums
+    Image1.Picture.Bitmap.Height := bmp.Height;  //image garums =bitmap garums
+    Image1.Width:=bmp.Width;
+    Image1.Height:=bmp.Height;
+    Image1.Picture.Bitmap.Canvas.Draw(0, 0, bmp); //iezimejam image datus par bitmap
+
+     if back=true then
+      begin
+        check:=true;
+        ReadFromImage(bmp);
+        if chanels.ItemIndex=0 then DrawHistogram(rgbHist);
+        if chanels.ItemIndex=1 then DrawHistogram(redHist);
+        if chanels.ItemIndex=2 then DrawHistogram(greenHist);
+        if chanels.ItemIndex=3 then DrawHistogram(blueHist);
+      end;
+
+      check:=true;
+      ReadFromImage(bmp);
+
+       if chanels.ItemIndex=0 then DrawHistogram(rgbHist);
+
+       if chanels.ItemIndex=1 then DrawHistogram(redHist);
+
+       if chanels.ItemIndex=2 then DrawHistogram(greenHist);
+
+       if chanels.ItemIndex=3 then DrawHistogram(blueHist);
+
+    bmp.Free;
+  end;
+end;
+
+
+procedure TForm1.OpenImage();
+var
+ FileN:String;    //faila paplashinajums
+ bmp:TBitmap;
+ jpg: TJPEGimage;
+begin
+
+
+   If Open.Execute then   //ja tiek atverts OpenPictureDialog1 tad
+    begin
+       bmp:=TBitmap.Create;  //veidojam bitmapu
+       FileN:=AnsiUpperCase(ExtractFileExt(Open.FileName));//panemam faila paplashinajumu no faila nosaukuma
+
+        if (FileN='.BMP') or (FileN='.ICO') or (FileN = '.WMF') then //ja ir sekojoshie paplashinajumi
+         begin
+          bmp.LoadFromFile(Open.FileName);  //ieladejam bitmapa musu izveleto attelu
+
+         end;
+
+      if (FileN = '.JPG') or (FileN = '.JPEG') then
+       begin
+        jpg := TJPEGimage.Create;       //veidojam Jpeg failu
+        jpg.LoadFromFile(Open.FileName);   //ieladejam jpeg failu
+        bmp:=TBitmap.Create;           //izveidojam bitmap
+        bmp.Width := jpg.Width;      //bitmapa platums sakrit ar jpg platumu
+        bmp.Height := jpg.Height;   //bitmap gaurms sakrit ar jpg garumu
+        bmp.Canvas.Draw(0, 0, jpg);   // uzzimejam uz bitmap kanvas jpg failu
+
+       end;
+
+        bmp.PixelFormat := pf24bit;       //3 kanali  definejam formatu, lai varetu atrak piekljut pie pikseliem
+        Image1.Picture.Bitmap.Width := bmp.Width;   // image platums sakrit ar bitmap platumu
+        Image1.Picture.Bitmap.Height := bmp.Height;      //image garums sakrit ar bitmap garumu
+
+
+                   //uzzimejam uz image
+        ReadFromImage(bmp);   //nolasam datus no attela
+        Draw(0);
+        DrawHistogram(rgbHist);    //zimejam histogrammu
+        bmp.free;        //atbrivojam atminu no bitmap
+        load:=true;
+        normred:=false;
+        normgreen:=false;
+        normblue:=false;
+    end;
+  end;
+
+
+
+procedure TForm1.FormCreate(Sender: TObject);
+var i,j,n,m:integer;
+begin
+ Image2.Height:=100;
+ Image2.Width:=256;
+
+ for j:=0 to Image2.Height-1 do
+  for i:=0 to Image2.Width-1 do
+    Image2.Canvas.Pixels[i,j]:=clGray;
+
+
+ Form1.Top:=0;
+ Form1.Left:=0;
+ form1.Width:=screen.Width;
+ form1.Height:=screen.Height-80;
+
+ Image1.Canvas.Pen.Color:=clWhite;
+
+ Form1.DoubleBuffered:=true;
+ back:=false;
+ check:=false;
+ normred:=false;
+ normgreen:=false;
+ normblue:=false;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+    begin
+      Form2.Showmodal;
+    end;
+end;
+
+procedure TForm1.BlurColor(a, b, c, d:integer);
+var  I,J:Integer;
+
+begin
+  for i := 0 to high(image) do
+   for j := 0 to high(image[0]) do
+     begin
+      if (i>0) and (j>0) and ((j-1)>0) and ((i-1)>0) and
+      ((j+1)<high(image[0])) and ((i+1)<high(image)) then
+       begin
+          image[i,j].blurred:=(image[i-1, j-1].r*a+
+          image[i-1, j].r*b+image[i-1, j+1].r*a+
+          image[i, j-1].r*b+image[i,j+1].r*b+
+          image[i+1, j-1].r*a+image[i+1, j].r*b+
+          image[i+1, j+1].r*a+image[i,j].r*c) div d;
+
+          image[i,j].blurgreen:=(image[i-1, j-1].g*a+
+          image[i-1, j].g*b+image[i-1, j+1].g*a+
+          image[i, j-1].g*b+image[i,j+1].g*b+
+          image[i+1, j-1].g*a+image[i+1, j].g*b+
+          image[i+1, j+1].g*a+image[i,j].g*c) div d;
+
+          image[i,j].blurblue:=(image[i-1, j-1].b*a+
+          image[i-1, j].b*b+image[i-1, j+1].b*a+
+          image[i, j-1].b*b+image[i,j+1].b*b+
+          image[i+1, j-1].b*a+image[i+1, j].b*b+
+          image[i+1, j+1].b*a+image[i,j].b*c) div d;
+        end
+        else
+        begin
+          image[i,j].blurred:=image[i,j].R;
+          image[i,j].blurgreen:=image[i,j].G;
+          image[i,j].blurblue:=image[i,j].B;
+        end;
+       end;
+
+end;
+
+
+procedure TForm1.Blur1(a, b, c, d:integer);
+var  I,J:Integer;
+
+begin
+ for i := 0 to high(image) do
+   for j := 0 to high(image[0]) do
+     begin
+      if (i>0) and (j>0) and ((j-1)>0) and ((i-1)>0) and
+      ((j+1)<high(image[0])) and ((i+1)<high(image)) then
+       begin
+          image[i,j].blurint:=(image[i-1, j-1].intensity*a+
+          image[i-1, j].intensity*b+image[i-1, j+1].intensity*a+
+          image[i, j-1].intensity*b+image[i,j+1].intensity*b+
+          image[i+1, j-1].intensity*a+image[i+1, j].intensity*b+
+          image[i+1, j+1].intensity*a+image[i,j].intensity*c) div d;
+        end
+        else
+        begin
+          image[i,j].blurint:=image[i,j].R;
+          image[i,j].blurint:=image[i,j].G;
+          image[i,j].blurint:=image[i,j].B;
+        end;
+       end;
+
+end;
+
+
+
+
+procedure TForm1.BlurClick(Sender: TObject);
+var i,j:integer;
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Blur1(1,2,3,15);
+    Draw(8);
+    DrawHistogram(rgbhist);
+    back:=false;
+  end;
+end;
+
+procedure TForm1.Emboss1;
+var i,j, biass:integer;
+begin
+
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+
+  for i := 0 to high(image) do
+   for j := 0 to high(image[0]) do
+     begin
+      if (i>0) and (j>0) and ((j-1)>0) and ((i-1)>0) and
+      ((j+1)<high(image[0])) and ((i+1)<high(image)) then
+       begin
+          biass:=(image[i-1, j-1].intensity*0+
+          image[i-1, j].intensity*0+image[i-1, j+1].intensity*(-1)+
+          image[i, j-1].intensity*0+image[i,j+1].intensity*(0)+
+          image[i+1, j-1].intensity*1+image[i+1, j].intensity*(0)+
+          image[i+1, j+1].intensity*(0)+image[i,j].intensity*0)+128;
+
+          if biass>255 then biass:=255;
+          if biass<0 then biass:=0;
+
+          image[i,j].emboss:=biass;
+        end
+        else
+        begin
+          image[i,j].emboss:=image[i,j].R;
+          image[i,j].emboss:=image[i,j].G;
+          image[i,j].emboss:=image[i,j].B;
+        end;
+       end;
+   end;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Emboss1;
+    draw(9);
+   end;
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+ if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Form3.Show;
+   end;
+end;
+
+ //***************************Histogrammas normalizeshana***************************************
+procedure TForm1.HistogramNormalize(var histogram: THistogram; RGBnum: integer; ORStart: integer; ORend: integer);
+var OriginalRange, StretchedRange, Intensity, i, j: integer;
+    ScaleFactor: real;
+begin
+  Repeat
+  inc(ORstart);    //atrod histogrammas sakumu
+  Until Histogram[ORStart].I>0;
+
+  Repeat
+  dec(ORend);     //histogrammas beigas
+  Until Histogram[ORend].I>0;
+
+  OriginalRange:=ORend-ORstart; //histogrammas originalais diapazons
+  StretchedRange:=255;      //kopejais hisogrammas garums
+
+  if  OriginalRange = 0 then  OriginalRange:=1;  //nevar but 0
+  ScaleFactor:=StretchedRange/OriginalRange;   //  merogoshanas koef =255/(end-start)
+
+  for i:=0 to 256 do
+    begin
+      rgbHist[i].I:=0;      //ieprieksheja intensitate tiek nodzesta
+    end;
+
+  for i:=0 to High(image)-1 do
+    for j:= 0 to High(image[0]) do
+      begin
+       if  RGBnum=1 then      //RGB
+            begin
+               //tiek izskaitljota intensitate prieks kopejas histogrammas
+               Intensity:=round(ScaleFactor*(image[i,j].intensity-ORstart));
+               //parbauditas intensitates robezas, jo nevar but lielaks par 255
+                If Intensity>255 then Intensity:=255;
+                //vai mazakai par 0
+                If Intensity<0 then Intensity:=0;
+                //attela intesitates vertiba kljust tikko izskaitljota vertiba
+               image[i,j].intensity:=Intensity;
+             end
+        else if  RGBnum=2 then    //Red
+             begin
+             //tiek izskaitljota intensitate prieks sarkanas krasas
+               Intensity:=round(ScaleFactor*(image[i,j].R-ORstart));
+                 //parbauditas intensitates robezas, jo nevar but lielaks par 255
+                If Intensity>255 then Intensity:=255;
+                //vai mazakai par 0
+                If Intensity<0 then Intensity:=0;
+                //attela intesitates vertiba  pec sarkanas krasas kljust
+                // tikko izskaitljota vertiba
+               image[i,j].NormalizeRed:=Intensity;
+             end
+
+        else if  RGBnum=3 then    //Green
+             begin
+              //tiek izskaitljota intensitate prieks zaljas krasas
+               Intensity:=round(ScaleFactor*(image[i,j].G-ORstart));
+                 //parbauditas intensitates robezas, jo nevar but lielaks par 255
+                If Intensity>255 then Intensity:=255;
+                //vai mazakai par 0
+                If Intensity<0 then Intensity:=0;
+                 //attela intesitates vertiba  pec zalas krasas kljust
+                // tikko izskaitljota vertiba
+               image[i,j].NormalizeGreen:=Intensity;
+             end
+
+        else if  RGBnum=4 then    //Blue
+          begin
+            //tiek izskaitljota intensitate prieks zilas krasas
+               Intensity:=round(ScaleFactor*(image[i,j].B-ORstart));
+                 //parbauditas intensitates robezas, jo nevar but lielaks par 255
+                If Intensity>255 then Intensity:=255;
+                //vai mazakai par 0
+                If Intensity<0 then Intensity:=0;
+               image[i,j].NormalizeBlue:=Intensity;
+             end;
+
+        inc(rgbhist[Intensity].I);    //saskaita vertiba
+      end;
+
+  for i:=0 to 256 do
+      Histogram[256].I:=Max(histogram[256].I, Histogram[i].I);
+end;
+
+procedure TForm1.Button8Click(Sender: TObject);
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    Blurcolor(1,1,2,10);
+    Draw(10);
+    
+    back:=false;
+  end;
+end;
+
+procedure TForm1.Button9Click(Sender: TObject);
+var a, b, i, j:integer;
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    for i:=0 to high(image) do
+     for j:=0 to high(image[0]) do
+      begin
+       image[i,j].intensity:=0;
+       Image[i, j].Intensity := (77 * Image[i, j].R + 150 * Image[i, j].G + 29 * Image[i, j].B) DIV 256;
+      end;
+
+    a:=StrToInt(Edit2.Text);
+    b:=StrToInt(Edit3.Text);
+    HistogramNormalize(rgbHist,1,a,b);
+    Draw(11);
+    drawhistogram(rgbhist);
+
+
+    back:=false;
+   end;
+end;
+
+
+procedure TForm1.new_histogram();
+var  a, b:integer;
+begin
+   a:=StrToInt(Edit2.Text);//histogrammas sakums
+   b:=StrToInt(Edit3.Text); //histogrammas beigas
+  Case chanels.ItemIndex of
+  0:  begin
+        HistogramNormalize(redhist,2, a, b); //red
+        HistogramNormalize(greenhist,3, a, b); //green
+        HistogramNormalize(bluehist,4, a, b); //blue
+        Draw(12);
+        DrawHistogram(rgbhist);
+      end;
+  1:  begin
+        HistogramNormalize(redhist,2, a, b);  //red
+        Draw(13);
+        DrawHistogram(redhist);
+        normred:=true;
+      end;
+  2:  begin
+        HistogramNormalize(greenhist,3, a, b);  //green
+        Draw(14);
+        DrawHistogram(greenhist);
+        normgreen:=true;
+      end;
+  3:  begin
+        HistogramNormalize(bluehist,4, a, b); //blue
+        Draw(15);
+        DrawHistogram(bluehist);
+        normblue:=true;
+      end;
+  end;
+end;
+
+procedure TForm1.Button10Click(Sender: TObject);
+begin
+if load=false then
+ showmessage('Please, open picture') //ja nav atverts attels
+   else
+   begin
+    new_histogram;
+    back:=false;
+   end;
+end;
+
+procedure TForm1.Image2MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+if load then
+ Label4.Caption:='Levels '+IntToStr(X)+ ' Pixels count '+ IntToStr(rgbhist[x].I);
+end;
+
+
+end.

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012.09.22 15:42:23.984.dproj,F:\krasainu attelu apstrade\3.nodarbiba\Project1.dproj=F:\krasainu attelu apstrade\4.nodarbiba\Project1.dproj</Transaction>
+    <Transaction>2012.09.22 15:42:35.234.pas,F:\krasainu attelu apstrade\3.nodarbiba\Unit1.pas=F:\krasainu attelu apstrade\4.nodarbiba\Unit1.pas</Transaction>
+    <Transaction>2012.09.22 15:42:35.234.dfm,F:\krasainu attelu apstrade\3.nodarbiba\Unit1.dfm=F:\krasainu attelu apstrade\4.nodarbiba\Unit1.dfm</Transaction>
+    <Transaction>2012.09.22 15:42:47.296.pas,F:\krasainu attelu apstrade\3.nodarbiba\RGBch.pas=F:\krasainu attelu apstrade\4.nodarbiba\RGBch.pas</Transaction>
+    <Transaction>2012.09.22 15:42:47.296.dfm,F:\krasainu attelu apstrade\3.nodarbiba\RGBch.dfm=F:\krasainu attelu apstrade\4.nodarbiba\RGBch.dfm</Transaction>
+    <Transaction>2012.09.22 15:43:08.500.pas,F:\krasainu attelu apstrade\3.nodarbiba\Compare.pas=F:\krasainu attelu apstrade\4.nodarbiba\Compare.pas</Transaction>
+    <Transaction>2012.09.22 15:43:08.500.dfm,F:\krasainu attelu apstrade\3.nodarbiba\Compare.dfm=F:\krasainu attelu apstrade\4.nodarbiba\Compare.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

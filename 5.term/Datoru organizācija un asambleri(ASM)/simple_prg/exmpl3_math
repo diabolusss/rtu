@@ -1,0 +1,31 @@
+; W = X / Y - Z
+; IF W<=0 THEN W = W*2 ELSE W=W/2
+
+
+TEXT    SEGMENT
+	ASSUME  cs:TEXT, ds:TEXT
+	ORG     100h
+start:  jmp 	go
+
+x	dw	13
+y	dw	5
+z	dw	4
+w	dw	0
+
+go:			;W = X / Y - Z
+	mov 	ax, x 	; 
+	cwd 		; convert word to double word - extends the 16 bit value
+			; in ax to 32 bits and places the result in dx:ax. 
+	idiv 	y 	; quotient in ax and the remainder in dx
+	sub 	ax, z
+	cmp	ax, 0	; IF W<=0 THEN W = W*2 ELSE W=W/2
+	jle	minus
+	mov	bl, 2	;
+	idiv	bl	; W/2 i.e. ax/2
+	jmp	result
+minus:	add	ax, ax	; W*2 i.e. ax+ax
+result:	mov 	w, ax
+
+	int     20h          ; Exit
+TEXT    ENDS
+	END     start        

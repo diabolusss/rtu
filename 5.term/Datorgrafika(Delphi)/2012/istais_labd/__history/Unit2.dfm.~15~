@@ -1,0 +1,71 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 333
+  ClientWidth = 768
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnPaint = FormPaint
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 13
+  object ScrollBar1: TScrollBar
+    Left = 8
+    Top = 64
+    Width = 752
+    Height = 17
+    Max = 5
+    Min = 1
+    PageSize = 0
+    Position = 1
+    TabOrder = 0
+    OnChange = ScrollBar1Change
+  end
+  object ScrollBar2: TScrollBar
+    Left = 8
+    Top = 24
+    Width = 752
+    Height = 17
+    Max = 360
+    Min = -360
+    PageSize = 0
+    TabOrder = 1
+  end
+  object Edit1: TEdit
+    Left = 289
+    Top = 96
+    Width = 57
+    Height = 21
+    TabOrder = 2
+    Text = 'Edit1'
+  end
+  object Edit2: TEdit
+    Left = 352
+    Top = 96
+    Width = 57
+    Height = 21
+    TabOrder = 3
+    Text = 'Edit2'
+  end
+  object Edit3: TEdit
+    Left = 415
+    Top = 96
+    Width = 58
+    Height = 21
+    TabOrder = 4
+    Text = 'Edit3'
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 720
+    Top = 280
+  end
+end

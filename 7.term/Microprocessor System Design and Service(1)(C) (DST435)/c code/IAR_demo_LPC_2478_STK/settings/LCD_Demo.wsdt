@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>LCD_Demo/Flash Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>266</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Debug-Log</Factory></Window><Window><Factory>Find-in-Files</Factory></Window></Windows></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>916</ColumnWidth1><ColumnWidth2>244</ColumnWidth2><ColumnWidth3>61</ColumnWidth3></Build>
+      <TerminalIO/>
+    <Debug-Log><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window><Window><Factory>Find-in-Files</Factory></Window></Windows></PreferedWindows><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1381</ColumnWidth1></Debug-Log><Find-in-Files><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Build</Factory></Window><Window><Factory>Debug-Log</Factory></Window></Windows></PreferedWindows><ColumnWidth0>440</ColumnWidth0><ColumnWidth1>62</ColumnWidth1><ColumnWidth2>754</ColumnWidth2></Find-in-Files><Disassembly><MixedMode>1</MixedMode><CodeCovShow>0</CodeCovShow></Disassembly></Static>
+    <Windows>
+      
+      
+    <Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-31721-28155</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>LCD_Demo</ExpandedNode><ExpandedNode>LCD_Demo/Modules</ExpandedNode><ExpandedNode>LCD_Demo/app</ExpandedNode><ExpandedNode>LCD_Demo/board</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3><Tabs><Tab><Identity>TabID-23093-6072</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-28-6095</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-6257-25092</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab></Tabs><SelectedTab>1</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\board\arm_comm.h</Filename><XPos>0</XPos><YPos>156</YPos><SelStart>4837</SelStart><SelEnd>4837</SelEnd></Tab><ActiveTab>0</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-02638298><key>iaridepm.enu1</key></Toolbar-02638298></Sizes></Row0></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>636</Bottom><Right>340</Right><x>-2</x><y>-2</y><xscreen>-2449660</xscreen><yscreen>-1811702</yscreen><sizeHorzCX>-1701152777</sizeHorzCX><sizeHorzCY>-2111540792</sizeHorzCY><sizeVertCX>237500</sizeVertCX><sizeVertCY>743590</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>177</Bottom><Right>1442</Right><x>-2</x><y>-2</y><xscreen>1444</xscreen><yscreen>179</yscreen><sizeHorzCX>1002778</sizeHorzCX><sizeHorzCY>208625</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>208625</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

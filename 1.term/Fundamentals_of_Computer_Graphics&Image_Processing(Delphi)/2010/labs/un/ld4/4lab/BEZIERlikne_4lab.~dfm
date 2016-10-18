@@ -1,0 +1,36 @@
+object Form1: TForm1
+  Left = 203
+  Top = 146
+  Width = 870
+  Height = 640
+  Caption = 'Form1'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 16
+    Top = 24
+    Width = 545
+    Height = 569
+  end
+  object RadioGroup1: TRadioGroup
+    Left = 584
+    Top = 24
+    Width = 225
+    Height = 169
+    Caption = 'CheckPoints'
+    ItemIndex = 0
+    Items.Strings = (
+      '0 punkts'
+      '1 punkts'
+      '3 punkts')
+    TabOrder = 0
+  end
+end

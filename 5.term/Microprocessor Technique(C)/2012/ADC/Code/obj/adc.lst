@@ -1,0 +1,61 @@
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 8FEF      		ldi r24,lo8(-1)
+  25 0002 81BB      		out 49-32,r24
+  26               	.LM3:
+  27 0004 86B1      		in r24,38-32
+  28 0006 8660      		ori r24,lo8(6)
+  29 0008 86B9      		out 38-32,r24
+  30               	.LM4:
+  31 000a 3E9A      		sbi 39-32,6
+  32               	.LM5:
+  33 000c 3D9A      		sbi 39-32,5
+  34               	.LM6:
+  35 000e 399A      		sbi 39-32,1
+  36               	.LM7:
+  37 0010 389A      		sbi 39-32,0
+  38               	.LM8:
+  39 0012 359A      		sbi 38-32,5
+  40               	.LM9:
+  41 0014 379A      		sbi 38-32,7
+  42               	.L6:
+  43               	.LM10:
+  44 0016 369A      		sbi 38-32,6
+  45               	.LM11:
+  46 0018 85B1      		in r24,37-32
+  47 001a 8138      		cpi r24,lo8(-127)
+  48 001c 00F0      		brlo .L2
+  49               	.LM12:
+  50 001e 909A      		sbi 50-32,0
+  51 0020 00C0      		rjmp .L6
+  52               	.L2:
+  53               	.LM13:
+  54 0022 82B3      		in r24,50-32
+  55 0024 12BA      		out 50-32,__zero_reg__
+  56 0026 00C0      		rjmp .L6
+  57               	.LFE2:
+  83               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:2      *ABS*:0000003f __SREG__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:5      *ABS*:00000034 __CCP__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Gundars\AppData\Local\Temp/ccTjBSUk.s:18     .text:00000000 main
+
+NO UNDEFINED SYMBOLS

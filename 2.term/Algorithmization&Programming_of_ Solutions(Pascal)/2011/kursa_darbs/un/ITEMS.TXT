@@ -1,0 +1,45 @@
+Audi 80
+1992
+250
+Zala
+990
+BMW 320i
+2010
+132
+Peleka
+3750
+Mazda Xedos 9
+2002
+196
+Bruna
+2500
+Mercedes C220
+1996
+270
+Melna
+870
+Mitsubishi Lans
+2010
+3000
+Kirsu
+11500
+Opel Omega
+1999
+21000
+T.Zila
+1250
+Peugeot 206
+2001
+150
+G.Zala
+1600
+Volvo C70
+1998
+189
+Sarkana
+2600
+WV Golf 6
+2010
+20
+Zila
+9300

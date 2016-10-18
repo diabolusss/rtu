@@ -1,0 +1,24 @@
+Using the program
+
+It is posible to teach 1 percepetron (buttons on the left side) or 10 perceptrons (buttons on the right side)
+
+
+Teaching 1 percepetron and using (buttons on the left side)
+0.Press "CG" or "PR" to select the corresponding TS and ES
+1.Press "Generate random links"
+2.Press "Set/Reset weights (W)"
+3.Press "Open Training Set (TS)" or "Open Exam Set (ES)"
+4.Select a character from the list that will be displayed 
+5.Press "Test"
+6.Repeat steps 4-5 until you are satisfied
+
+
+Teaching 10 perceptrons and using (buttons on the right side)
+0.Select a method: "Vienlidzibas balsosanas algoritms (Fully taught)" (default) or "Vienlidzibas balsosanas algoritms (Partially taught) or "Svertas balsosanas algoritms (Partially taught)"
+1.Press "CG" or "PR" to select the corresponding TS and ES
+2.Press "Generate random links for all perceptrons";
+3.Press "Set/Reset weights for all perceptrons";
+4.Press "Open Training Set (TS)" or "Open Exam Set (ES)"
+5.Select a character from the list that will be displayed
+6.Press "Test using selected method" (for now it is unnecessary to select because only one method exists)
+7.Repeat steps 5-6 until you are satisfied

@@ -1,0 +1,45 @@
+Turbo Assembler	 Version 3.1	    09/05/12 14:58:13	    Page 1
+demo.ASM
+
+
+
+      1	0000			     .model tiny ;atmina modelis
+      2	0000			     .code	 ;programma
+      3				     .startup	 ;ieejas punkts
+1     4	0100			     @Startup:
+      5				     .exit 0	 ;izejas punkts
+1     6	0100  B8 4C00			     MOV     AX,04C00h
+1     7	0103  CD 21			     INT     21h
+      8				     end
+Turbo Assembler	 Version 3.1	    09/05/12 14:58:13	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name		Type   Value			   Cref	(defined at #)
+
+??DATE			Text   "09/05/12"
+??FILENAME		Text   "demo	"
+??TIME			Text   "14:58:13"
+??VERSION		Number 030A
+@32BIT			Text   0			   #1
+@CODE			Text   DGROUP			   #1
+@CODESIZE		Text   0			   #1
+@CPU			Text   0101H
+@CURSEG			Text   _TEXT			   #2
+@DATA			Text   DGROUP			   #1
+@DATASIZE		Text   0			   #1
+@FILENAME		Text   DEMO
+@INTERFACE		Text   00H			   #1
+@MODEL			Text   1			   #1
+@STACK			Text   DGROUP			   #1
+@STARTUP		Near   DGROUP:0100		   #4  9
+@WORDSIZE		Text   2			   #2
+
+Groups & Segments	Bit Size Align	Combine	Class	   Cref	(defined at #)
+
+DGROUP			Group				   #1  1
+  _DATA			16  0000 Word	Public	DATA	   #1
+  _TEXT			16  0105 Word	Public	CODE	   #1  #2
+

@@ -1,0 +1,1 @@
+IAR_demo_LPC_2478_STK.zip - Demo project that shows basic usage of some of the board's peripherals. Requires IAR EWARM 5.11+ and a J-Link/J-Trace Probe
